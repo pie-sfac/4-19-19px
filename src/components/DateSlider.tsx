@@ -75,11 +75,10 @@ const DateSlider = () => {
     let dateInfoArray: DateInfo[] = [];
     for (let i = todayDate - 6; i <= todayDate; i++) {
       let dateConfig: DateConfig = { isData: false };
-      personalDates!.filter((date) => {
+      personalDates!.forEach((date) => {
         if (i === date.date) {
           dateConfig.isData = true;
           dateConfig.id = date.id;
-        } else {
         }
       });
       dateInfoArray.push({ date: i, ...dateConfig });
@@ -88,10 +87,9 @@ const DateSlider = () => {
   };
 
   const getPersonalDate = () => {
-    let personalInfoArray: PersonalDateInfo[] = [];
-    personalReports.datas.map((data) => {
+    const personalInfoArray = personalReports.datas.map((data) => {
       const personalDate = new Date(data.createDate).getDate();
-      personalInfoArray.push({ date: personalDate, id: data.id });
+      return { date: personalDate, id: data.id };
     });
     setPersonalDates(personalInfoArray);
   };
