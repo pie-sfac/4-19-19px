@@ -1,4 +1,7 @@
 import AppRouter from "./router/Router";
+import Modal from "react-modal";
+
+Modal.setAppElement("#root");
 
 function App() {
   return (
