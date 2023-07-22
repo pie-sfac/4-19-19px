@@ -111,7 +111,7 @@ const personalReport = {
 
 const PersonalDetailPage = () => {
   return (
-    <>
+    <div className="bg-white">
       {/* 페이지 헤더 */}
       <header>
         <div>
@@ -150,7 +150,7 @@ const PersonalDetailPage = () => {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 };
 
