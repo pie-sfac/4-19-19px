@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import PainChart from "./PainChart";
 
 interface PropType {
   type: "media" | "feedback" | "recommend" | "pain" | "condition";
@@ -261,16 +262,7 @@ const DetailSection = ({ type }: PropType) => {
           ))}
         </ul>
       )}
-      {type === "pain" && (
-        <div>
-          <select name="" id="">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-          </select>
-          {/* 통증 그래프 */}
-        </div>
-      )}
+      {type === "pain" && <PainChart />}
       {type === "condition" && (
         <ul>
           {personalReport.condition.items.map((item) => (
