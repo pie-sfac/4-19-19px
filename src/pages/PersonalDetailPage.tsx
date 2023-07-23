@@ -111,14 +111,31 @@ const personalReport = {
 
 const PersonalDetailPage = () => {
   return (
-    <div className="bg-white">
+    <div className="px-4 py-4">
       {/* 페이지 헤더 */}
-      <header>
-        <div>
-          <div>{personalReport.member.name} 회원님</div>
-          <Link to={"/personal"}>과거 피드백 보러가기</Link>
+      <header className="flex justify-between items-center">
+        <div className="flex items-end gap-2">
+          <div className="text-2xl font-bold">
+            {personalReport.member.name} 회원님
+          </div>
+          <Link to={"/personal"} className="text-xs text-gray-500">
+            과거 피드백 보러가기 〉
+          </Link>
         </div>
-        <Link to={"/alarm"}>🛎</Link>
+        <Link to={"/alarm"}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="21"
+            viewBox="0 0 18 21"
+            fill="none"
+          >
+            <path
+              d="M7 19H11C11 20.1 10.1 21 9 21C7.9 21 7 20.1 7 19ZM18 17V18H0V17L2 15V9C2 5.9 4 3.2 7 2.3V2C7 0.9 7.9 0 9 0C10.1 0 11 0.9 11 2V2.3C14 3.2 16 5.9 16 9V15L18 17ZM14 9C14 6.2 11.8 4 9 4C6.2 4 4 6.2 4 9V16H14V9Z"
+              fill="black"
+            />
+          </svg>
+        </Link>
       </header>
       {/* 주간 레포트 날짜 별 슬라이드 */}
       <DateSlider />
@@ -137,16 +154,46 @@ const PersonalDetailPage = () => {
       {/* 공유 섹션 */}
       <ShareSection name={personalReport.member.name} />
       {/* 컴퍼니 섹션 */}
-      <section>
-        <div>
-          <div>🏢</div>
+      <section className="mt-12 p-4 text-sm bg-gray-100">
+        <div className="flex gap-1">
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path d="M9 6H8V7H9V6Z" fill="black" />
+              <path d="M11 6H13V7H11V6Z" fill="black" />
+              <path d="M16 6H15V7H16V6Z" fill="black" />
+              <path d="M8 9H9V10H8V9Z" fill="black" />
+              <path d="M9 12H8V13H9V12Z" fill="black" />
+              <path d="M8 15H9V16H8V15Z" fill="black" />
+              <path d="M13 9H11V10H13V9Z" fill="black" />
+              <path d="M11 12H13V13H11V12Z" fill="black" />
+              <path d="M13 15H11V16H13V15Z" fill="black" />
+              <path d="M16 9H15V10H16V9Z" fill="black" />
+              <path d="M15 12H16V13H15V12Z" fill="black" />
+              <path d="M16 15H15V16H16V15Z" fill="black" />
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M18 20C18.5523 20 19 19.5523 19 19V5C19 4.44772 18.5523 4 18 4H6C5.44772 4 5 4.44772 5 5V19C5 19.5523 5.44772 20 6 20H18ZM6 5H18V19H14V17H10V19H6V5Z"
+                fill="black"
+              />
+            </svg>
+          </div>
           <div>포인티 센터</div>
         </div>
-        <div>
+        <div className="ml-7 font-light text-gray-700">
           <div>서울시 남부순환로 1801, 라피스 빌딩 8층</div>
           <div>02-840-9002</div>
-          <div>
-            카카오톡 문의: <Link to={"#"}>포인티 센터 바로가기</Link>
+          <div className="font-bold">
+            카카오톡 문의:{" "}
+            <Link to={"#"} className="underline">
+              포인티 센터 바로가기
+            </Link>
           </div>
         </div>
       </section>
