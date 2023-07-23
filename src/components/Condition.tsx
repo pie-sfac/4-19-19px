@@ -5,7 +5,7 @@ interface PropType {
 
 const Condition = ({ date, condition }: PropType) => {
   return (
-    <li>
+    <li className="flex flex-col items-center gap-3">
       <div>
         {condition === "매우좋음" && (
           <svg
@@ -258,9 +258,9 @@ const Condition = ({ date, condition }: PropType) => {
           </svg>
         )}
       </div>
-      <div>
-        <span>{condition}</span>
-        <span>{date}</span>
+      <div className="flex flex-col items-center gap-1">
+        <span className="text-xs text-blue-600">{condition}</span>
+        <span className="text-[10px] text-gray-400">{date}</span>
       </div>
     </li>
   );
