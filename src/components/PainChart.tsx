@@ -99,7 +99,10 @@ const PainChart = () => {
     );
     let newPainData: any = [];
     selectBodyCode[0].histories.forEach((history) => {
-      const name = history.date.slice(8, 10);
+      const name = `${history.date.slice(2, 4)}.${history.date.slice(
+        5,
+        7
+      )}.${history.date.slice(8, 10)}`;
       newPainData.push({ name, uv: history.level });
     });
     setPainData(newPainData.reverse());
@@ -115,11 +118,26 @@ const PainChart = () => {
         <option value={2}>2</option>
       </select>
       <div>
-        <LineChart width={300} height={200} data={painData}>
-          <Line type={"monotone"} dataKey={"uv"} stroke="#111" />
-          <CartesianGrid stroke="#111" />
-          <XAxis dataKey="name" className="text-xs" />
-          <YAxis className="text-xs" />
+        <LineChart width={350} height={200} data={painData}>
+          <CartesianGrid vertical={false} />
+          <Line
+            type={"monotone"}
+            dataKey={"uv"}
+            dot={{ strokeWidth: 5, fill: "blue" }}
+          />
+          <XAxis
+            dataKey="name"
+            tickLine={false}
+            interval={0}
+            padding={{ left: 15, right: 15 }}
+            className="text-[10px]"
+          />
+          <YAxis
+            width={30}
+            axisLine={false}
+            tickLine={false}
+            className="text-[10px]"
+          />
         </LineChart>
       </div>
     </div>
