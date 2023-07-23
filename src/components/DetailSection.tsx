@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import PainChart from "./PainChart";
+import ConditionList from "./ConditionList";
 
 interface PropType {
   type: "media" | "feedback" | "recommend" | "pain" | "condition";
@@ -263,19 +264,7 @@ const DetailSection = ({ type }: PropType) => {
         </ul>
       )}
       {type === "pain" && <PainChart />}
-      {type === "condition" && (
-        <ul>
-          {personalReport.condition.items.map((item) => (
-            <li key={item.date}>
-              <div>😀</div>
-              <div>
-                <span>{item.condition}</span>
-                <span>{item.date}</span>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
+      {type === "condition" && <ConditionList />}
     </section>
   );
 };
