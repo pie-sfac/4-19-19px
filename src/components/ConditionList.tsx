@@ -1,3 +1,5 @@
+import Condition from "./Condition";
+
 const condition = {
   hidden: true,
   items: [
@@ -25,7 +27,17 @@ const condition = {
 };
 
 const ConditionList = () => {
-  return null;
+  return (
+    <ul>
+      {condition.items.map((item) => (
+        <Condition
+          key={item.date}
+          date={item.date.replaceAll("-", ".")}
+          condition={item.condition}
+        />
+      ))}
+    </ul>
+  );
 };
 
 export default ConditionList;
