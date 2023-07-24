@@ -1,13 +1,4 @@
-import { Link } from "react-router-dom";
-import PainChart from "./PainChart";
-import ConditionList from "./ConditionList";
-import SectionHeader from "./PersonalReport/SectionHeader";
-import MediaSection from "./PersonalReport/Media/MediaSection";
-import FeedbackSection from "./PersonalReport/Feedback/FeedbackSection";
-
-interface PropType {
-  type: "media" | "feedback" | "recommend" | "pain" | "condition";
-}
+import { useState } from "react";
 
 const personalReport = {
   uuid: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
@@ -38,7 +29,7 @@ const personalReport = {
   comment: {
     hidden: true,
     content:
-      "회원님 어깨가 빨리 개선되기 위해 제가 오늘 하신 운동이랑 저희가 제안드리는 운동 처방 같이 드렸습니다. 꼭 회원님 하루에 10회씩 2세트씩 해주세요.",
+      "회원님 어깨가 빨리 개선되기 위해 제가 오늘 하신 운동이랑 저희가 제안드리는 운동 처방 같이 드렸습니다. 꼭 회원님 하루에 10회씩 2세트씩 해주세요. 회원님 어깨가 빨리 개선되기 위해 제가 오늘 하신 운동이랑 저희가 제안드리는 운동 처방 같이 드렸습니다. 꼭 회원님 하루에 10회씩 2세트씩 해주세요. 회원님 어깨가 빨리 개선되기 위해 제가 오늘 하신 운동이랑 저희가 제안드리는 운동 처방 같이 드렸습니다. 꼭 회원님 하루에 10회씩 2세트씩 해주세요.",
   },
   media: {
     hidden: true,
@@ -150,39 +141,61 @@ const personalReport = {
   },
 };
 
-const DetailSection = ({ type }: PropType) => {
+const FeedbackSection = () => {
+  const [extension, setExtension] = useState(false);
   return (
-    <section className="mt-6">
-      <SectionHeader type={type} />
-      <div className="mt-2">
-        {type === "media" && <MediaSection />}
-        {type === "feedback" && <FeedbackSection />}
-        {type === "recommend" && (
-          <ul className="mt-2 grid grid-rows-2 grid-flow-col gap-2 overflow-hidden">
-            {personalReport.archiveLink.items.map((item) => (
-              <li key={item.url}>
-                <Link
-                  to={"#"}
-                  className="w-60 flex items-center space-x-2 border p-2 rounded-lg"
-                >
-                  <div
-                    className="w-12 h-12 rounded-md shadow-md"
-                    style={{
-                      backgroundImage: `url(${item.url})`,
-                      backgroundSize: "cover",
-                    }}
-                  />
-                  <span className="text-sm">{item.description}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+    <div className="rounded-lg bg-[#FBFBFB]">
+      <p
+        className={[
+          "p-4 border border-b-0 rounded-t-lg text-sm font-normal text-[#505050]",
+          extension ? "" : "h-24",
+        ].join(" ")}
+      >
+        {extension
+          ? personalReport.comment.content
+          : personalReport.comment.content.slice(0, 80) + "..."}
+      </p>
+      <div
+        className="h-8 border flex justify-center items-center rounded-b-lg cursor-pointer"
+        onClick={() => setExtension((pre) => !pre)}
+      >
+        {extension ? (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="8"
+            viewBox="0 0 12 8"
+            fill="none"
+          >
+            <path
+              d="M1.41 8L6 3.42L10.59 8L12 6.59L6 0.590001L-1.23266e-07 6.59L1.41 8Z"
+              fill="#323232"
+            />
+          </svg>
+        ) : (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <g clipPath="url(#clip0_13_196)">
+              <path
+                d="M16.59 8.59003L12 13.17L7.41 8.59003L6 10L12 16L18 10L16.59 8.59003Z"
+                fill="#323232"
+              />
+            </g>
+            <defs>
+              <clipPath id="clip0_13_196">
+                <rect width="24" height="24" fill="white" />
+              </clipPath>
+            </defs>
+          </svg>
         )}
-        {type === "pain" && <PainChart />}
-        {type === "condition" && <ConditionList />}
       </div>
-    </section>
+    </div>
   );
 };
 
-export default DetailSection;
+export default FeedbackSection;
