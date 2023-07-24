@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import MediaListBox from "./MediaListBox";
 
 const personalReport = {
   uuid: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
@@ -145,41 +145,12 @@ const MediaSection = () => {
   return (
     <ul className="flex space-x-2 overflow-scroll">
       {personalReport.media.items.map((item) => (
-        <li key={item.uuid}>
-          <Link to={"#"}>
-            {item.type === "IMAGE" && (
-              <div
-                className="w-24 aspect-square rounded-md"
-                style={{
-                  backgroundImage: `url(${item.thumbnailUrl})`,
-                  backgroundSize: "cover",
-                }}
-              />
-            )}
-            {item.type === "VIDEO" && (
-              <div
-                className="w-24 aspect-square rounded-md flex justify-center items-center"
-                style={{
-                  backgroundImage: `linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5) ), url(${item.thumbnailUrl})`,
-                  backgroundSize: "cover",
-                }}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="32"
-                  height="32"
-                  viewBox="0 0 32 32"
-                  fill="none"
-                >
-                  <path
-                    d="M16 2.66669C8.63996 2.66669 2.66663 8.64002 2.66663 16C2.66663 23.36 8.63996 29.3334 16 29.3334C23.36 29.3334 29.3333 23.36 29.3333 16C29.3333 8.64002 23.36 2.66669 16 2.66669ZM16 26.6667C10.12 26.6667 5.33329 21.88 5.33329 16C5.33329 10.12 10.12 5.33335 16 5.33335C21.88 5.33335 26.6666 10.12 26.6666 16C26.6666 21.88 21.88 26.6667 16 26.6667ZM12.6666 22L22 16L12.6666 10V22Z"
-                    fill="#EBF1FF"
-                  />
-                </svg>
-              </div>
-            )}
-          </Link>
-        </li>
+        <MediaListBox
+          key={item.uuid}
+          type={item.type}
+          url={item.url}
+          thumbnailUrl={item.thumbnailUrl}
+        />
       ))}
     </ul>
   );
