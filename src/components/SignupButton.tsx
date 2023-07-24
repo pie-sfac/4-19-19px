@@ -6,7 +6,7 @@ const SignupButton : React.FC = () => {
     return (
         <>
             <Link to="/signup">
-                <small>포인티 계정이 없으세요? | 회원가입</small>
+                <p className="text-xs hover:underline">포인티 계정이 없으세요? | 회원가입</p>
             </Link>
         </>
     )
