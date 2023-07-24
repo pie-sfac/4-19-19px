@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import PainChart from "./PainChart";
 import ConditionList from "./ConditionList";
+import SectionHeader from "./PersonalReport/SectionHeader";
 
 interface PropType {
   type: "media" | "feedback" | "recommend" | "pain" | "condition";
@@ -150,64 +151,7 @@ const personalReport = {
 const DetailSection = ({ type }: PropType) => {
   return (
     <section className="mt-6">
-      {type === "media" && (
-        <div className="flex items-center space-x-2">
-          <span className="block w-2 h-2 bg-blue-800 rounded-full"></span>
-          <span className="text-sm font-medium">
-            {personalReport.member.name} 회원님의 영상 및 이미지
-            <span className="ml-2 text-blue-500">
-              {personalReport.media.items.length}
-            </span>
-          </span>
-        </div>
-      )}
-      {type === "feedback" && (
-        <div className="flex items-center space-x-2">
-          <span className="block w-2 h-2 bg-blue-800 rounded-full"></span>
-          <span className="text-sm font-medium">
-            {personalReport.writer.name} 선생님 피드백
-          </span>
-        </div>
-      )}
-      {type === "recommend" && (
-        <div className="flex items-center space-x-2">
-          <span className="block w-2 h-2 bg-blue-800 rounded-full"></span>
-          <span className="text-sm font-medium">
-            센터 추천 링크
-            <span className="ml-2 text-blue-500">
-              {personalReport.archiveLink.items.length}
-            </span>
-          </span>
-        </div>
-      )}
-      {type === "pain" && (
-        <div>
-          <div className="flex justify-between items-center">
-            <div className="flex items-center space-x-2">
-              <span className="block w-2 h-2 bg-blue-800 rounded-full"></span>
-              <span className="text-sm font-medium">통증 변화</span>
-            </div>
-            <span className="text-xs text-gray-500">최근 5회</span>
-          </div>
-          <div className="text-xs font-normal ml-4">
-            {personalReport.member.name} 회원님의 통증변화 그래프입니다.
-          </div>
-        </div>
-      )}
-      {type === "condition" && (
-        <div>
-          <div className="flex justify-between items-center">
-            <div className="flex items-center space-x-2">
-              <span className="block w-2 h-2 bg-blue-800 rounded-full"></span>
-              <span className="text-sm font-medium">컨디션 변화</span>
-            </div>
-            <span className="text-xs text-gray-500">최근 5회</span>
-          </div>
-          <div className="text-xs font-normal ml-4">
-            {personalReport.member.name} 회원님의 컨디션 변화입니다.
-          </div>
-        </div>
-      )}
+      <SectionHeader type={type} />
       {type === "media" && (
         <ul className="mt-2 flex space-x-2 overflow-hidden">
           {personalReport.media.items.map((item) => (
