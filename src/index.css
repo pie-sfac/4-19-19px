@@ -5,3 +5,44 @@
 body {
   background-color: #111;
 }
+
+.react-datepicker__header {
+  background-color: #2d62ea;
+  border-bottom: none;
+  padding-top: 12px;
+  border-radius: none !important;
+}
+
+.react-datepicker__triangle {
+  display: none;
+}
+
+.react-datepicker__day-name {
+  color: white;
+}
+
+.react-datepicker__day--selected {
+  background-color: #2d62ea;
+  color: white;
+  border-radius: 50%;
+}
+
+.react-datepicker__day:nth-child(1) {
+  color: #e75f5f;
+}
+.react-datepicker__day:nth-child(7) {
+  color: #6e94e6;
+}
+
+.react-datepicker__day-name:nth-child(1) {
+  color: #e75f5f;
+}
+.react-datepicker__day-name:nth-child(7) {
+  color: #a5bbec;
+}
+
+.react-datepicker__day--selected:hover {
+  background-color: #2d62ea;
+  color: white;
+  border-radius: 20%;
+}

@@ -1,5 +1,14 @@
 import { useEffect, useState } from "react";
 import PersonalListBox from "../components/PersonalListBox";
+import { Link } from "react-router-dom";
+
+interface Data {
+  id: number;
+  uuid: string;
+  createDate: string;
+  condition: string;
+}
+
 const PersonalListPage = () => {
   const exData = {
     meta: {
@@ -38,20 +47,22 @@ const PersonalListPage = () => {
     message: "string",
   };
 
-  const [personalData, setPersonalData] = useState(exData.datas);
-  const [sortOption, setSortOption] = useState("latest"); // 정렬 옵션 상태
+  const [personalData, setPersonalData] = useState<Data[]>(exData.datas);
+  const [sortOption, setSortOption] = useState<string>("latest"); // 정렬 옵션 상태
 
   useEffect(() => {
     const sortedData = personalData.slice();
     switch (sortOption) {
       case "latest":
         sortedData.sort(
-          (a, b) => new Date(b.createDate) - new Date(a.createDate)
+          (a, b) =>
+            new Date(b.createDate).getTime() - new Date(a.createDate).getTime()
         );
         break;
       case "oldest":
         sortedData.sort(
-          (a, b) => new Date(a.createDate) - new Date(b.createDate)
+          (a, b) =>
+            new Date(a.createDate).getTime() - new Date(b.createDate).getTime()
         );
         break;
       case "good":
@@ -64,30 +75,36 @@ const PersonalListPage = () => {
         break;
     }
     setPersonalData(sortedData);
-  }, [sortOption]);
+  }, [sortOption, personalData]);
 
   return (
     <>
-      <div>
-        <h1>&lt; 퍼스널 리포트</h1>
+      <div className="px-4 py-4">
+        <Link to={`/`}>
+          <h1 className="text-2xl font-bold">&lt; 퍼스널 리포트</h1>
+        </Link>
       </div>
-      <select
-        value={sortOption}
-        onChange={(e) => setSortOption(e.target.value)}
-      >
-        <option value="latest">최신순</option>
-        <option value="oldest">오래된순</option>
-        <option value="good">좋은순</option>
-        <option value="bad">나쁜순</option>
-      </select>
-      {personalData.map((data) => (
-        <PersonalListBox
-          key={data.id}
-          uuid={data.uuid}
-          createDate={data.createDate}
-          condition={data.condition}
-        />
-      ))}
+      <div className="flex justify-end">
+        <select
+          value={sortOption}
+          onChange={(e) => setSortOption(e.target.value)}
+        >
+          <option value="latest">최신순</option>
+          <option value="oldest">오래된순</option>
+          <option value="good">좋은순</option>
+          <option value="bad">나쁜순</option>
+        </select>
+      </div>
+      <div className="px-4 py-4">
+        {personalData.map((data) => (
+          <PersonalListBox
+            key={data.id}
+            uuid={data.uuid}
+            createDate={data.createDate}
+            condition={data.condition}
+          />
+        ))}
+      </div>
     </>
   );
 };

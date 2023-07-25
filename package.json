@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "react": "18.2.0",
-    "react-calendar": "^4.5.0",
+    "react-datepicker": "^4.16.0",
     "react-dom": "18.2.0",
     "react-modal": "^3.16.1",
     "react-router-dom": "^6.14.2",
@@ -20,7 +20,9 @@
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
+    "@types/react-datepicker": "^4.15.0",
     "@types/react-dom": "^18.0.11",
+    "@types/react-modal": "^3.16.0",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",
     "@vitejs/plugin-react-swc": "^3.0.0",
