@@ -1,9 +1,9 @@
-import PainChart from "./PainChart";
-import ConditionList from "./ConditionList";
-import SectionHeader from "./PersonalReport/SectionHeader";
-import MediaSection from "./PersonalReport/Media/MediaSection";
-import FeedbackSection from "./PersonalReport/Feedback/FeedbackSection";
-import RecommendSection from "./PersonalReport/Recommend/RecommendSection";
+import ConditionList from "./Condition/ConditionList";
+import SectionHeader from "./SectionHeader";
+import MediaSection from "./Media/MediaSection";
+import FeedbackSection from "./Feedback/FeedbackSection";
+import RecommendSection from "./Recommend/RecommendSection";
+import PainChart from "./Pain/PainChart";
 
 interface PropType {
   type: "media" | "feedback" | "recommend" | "pain" | "condition";
