@@ -1,70 +1,72 @@
 import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
 import ReservationDateButton from "../components/ReservationDateButton";
 import ReservationListBox from "../components/ReservationListBox";
+import { useSelectedDate } from "../libs/useSelectedDate";
 
 const exLessonData = {
   schedules: [
     {
-      lessonTitle: "필라테스 중급",
+      lessonTitle: "필라테스 중급0",
       lessonSchduleID: 0,
       lessonType: "SINGLE",
       lessonDuration: 0,
       maxGroupMember: 4,
       currentMember: 0,
-      reservationStartAt: "2023-07-20T11:41:12.485Z",
-      reservationEndAt: "2023-07-20T11:41:12.485Z",
+      reservationStartAt: "2023-07-24T11:41:12.485Z",
+      reservationEndAt: "2023-07-24T11:41:12.485Z",
       tutorName: "홍길동",
       lessonStartAt: "07:00",
       lessonEndAt: "08:30",
     },
     {
-      lessonTitle: "필라테스 중급",
+      lessonTitle: "필라테스 중급1",
       lessonSchduleID: 1,
       lessonType: "SINGLE",
       lessonDuration: 0,
       maxGroupMember: 4,
       currentMember: 1,
-      reservationStartAt: "2023-07-20T11:41:12.485Z",
-      reservationEndAt: "2023-07-21T11:41:12.485Z",
+      reservationStartAt: "2023-07-24T11:41:12.485Z",
+      reservationEndAt: "2023-07-26T11:41:12.485Z",
       tutorName: "홍길동",
       lessonStartAt: "07:00",
       lessonEndAt: "08:30",
     },
     {
-      lessonTitle: "필라테스 중급",
+      lessonTitle: "필라테스 중급2",
       lessonSchduleID: 2,
       lessonType: "SINGLE",
       lessonDuration: 0,
       maxGroupMember: 4,
       currentMember: 2,
-      reservationStartAt: "2023-07-20T11:41:12.485Z",
-      reservationEndAt: "2023-07-22T11:41:12.485Z",
+      reservationStartAt: "2023-07-24T11:41:12.485Z",
+      reservationEndAt: "2023-07-26T11:41:12.485Z",
       tutorName: "홍길동",
       lessonStartAt: "07:00",
       lessonEndAt: "08:30",
     },
     {
-      lessonTitle: "필라테스 중급",
+      lessonTitle: "필라테스 중급3",
       lessonSchduleID: 3,
       lessonType: "SINGLE",
       lessonDuration: 0,
       maxGroupMember: 4,
       currentMember: 3,
-      reservationStartAt: "2023-07-20T11:41:12.485Z",
-      reservationEndAt: "2023-07-23T11:41:12.485Z",
+      reservationStartAt: "2023-07-25T11:41:12.485Z",
+      reservationEndAt: "2023-07-26T11:41:12.485Z",
       tutorName: "홍길동",
       lessonStartAt: "07:00",
       lessonEndAt: "08:30",
     },
     {
-      lessonTitle: "필라테스 중급",
+      lessonTitle: "필라테스 중급4",
       lessonSchduleID: 4,
       lessonType: "SINGLE",
       lessonDuration: 0,
       maxGroupMember: 4,
       currentMember: 4,
-      reservationStartAt: "2023-07-20T11:41:12.485Z",
-      reservationEndAt: "2023-07-24T11:41:12.485Z",
+      reservationStartAt: "2023-07-26T11:41:12.485Z",
+      reservationEndAt: "2023-07-27T11:41:12.485Z",
       tutorName: "홍길동",
       lessonStartAt: "07:00",
       lessonEndAt: "08:30",
@@ -82,55 +84,128 @@ const exUserData = {
   lessonSchedulesID: [2, 3],
 };
 
-const ReservationPage = () => {
-  const [activeTab, setActiveTab] = useState("all");
+interface LessonData {
+  lessonTitle: string;
+  lessonSchduleID: number;
+  lessonType: string;
+  lessonDuration: number;
+  maxGroupMember: number;
+  currentMember: number;
+  reservationStartAt: string;
+  reservationEndAt: string;
+  tutorName: string;
+  lessonStartAt: string;
+  lessonEndAt: string;
+}
 
-  const handleTabChange = (tab) => {
+const ReservationPage = () => {
+  const [activeTab, setActiveTab] = useState<string>("all");
+
+  const handleTabChange = (tab: string) => {
     setActiveTab(tab);
   };
 
   return (
-    <div>
-      <h1>수업 예약 페이지</h1>
-      <div>
-        <button
-          onClick={() => handleTabChange("all")}
-          style={{ marginRight: "10px" }}
-        >
-          전체강의
-        </button>
-        <button onClick={() => handleTabChange("reserved")}>
-          예약중인 강의
-        </button>
-      </div>
+    <div className="px-4 py-4">
+      <ul className="flex justify-between">
+        <li className="w-3/6 text-center ">
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? "border-[#2D62EA] border-b-2 block text-[#2D62EA] font-bold pb-1 "
+                : "text-center border-b block pb-1"
+            }
+            onClick={() => {
+              handleTabChange("all");
+            }}
+            to="/reservation"
+          >
+            전체강의
+          </NavLink>
+        </li>
+        <li className="w-3/6 text-center">
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? "border-[#2D62EA] border-b-2 block text-[#2D62EA] font-bold pb-1 "
+                : "text-center border-b block pb-1"
+            }
+            onClick={() => handleTabChange("reserved")}
+            to="/reservation-reserved"
+          >
+            예약중인 강의
+          </NavLink>
+        </li>
+      </ul>
       {activeTab === "all" ? <AllLecturesTab /> : <ReservedLecturesTab />}
     </div>
   );
 };
 
 const AllLecturesTab = () => {
+  const { data } = useSelectedDate();
+  const [showReservable, setShowReservable] = useState<boolean>(false);
+
+  const handleToggleReservable = () => {
+    setShowReservable((prev) => !prev);
+  };
   return (
     <>
       <ReservationDateButton />
+      <div className="flex justify-end text-xs font-semibold">
+        <button
+          onClick={handleToggleReservable}
+          className={showReservable ? "text-[#2D62EA] " : "text-[#7c7c7c] "}
+        >
+          {showReservable ? "예약 가능한 강의" : "예약 가능한 강의"}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="10"
+            height="7"
+            viewBox="0 0 10 7"
+            fill="none"
+            className="inline-block ml-1"
+          >
+            <path
+              d="M1.175 0.408325L5 4.23333L8.825 0.408325L10 1.59166L5 6.59166L0 1.59166L1.175 0.408325Z"
+              fill={showReservable ? "#2D62EA" : "#7c7c7c"}
+            />
+          </svg>
+        </button>
+      </div>
       <div>
-        {exLessonData.schedules.map((data) => (
-          <ReservationListBox
-            key={data.lessonSchduleID}
-            lessonStartAt={data.lessonStartAt}
-            lessonEndAt={data.lessonEndAt}
-            lessonTitle={data.lessonTitle}
-            tutorName={data.tutorName}
-            currentMember={data.currentMember}
-            maxGroupMember={data.maxGroupMember}
-            lessonSchduleID={data.lessonSchduleID}
-            userLessonSchedules={exUserData.lessonSchedulesID}
-          />
-        ))}
+        {exLessonData.schedules.map((lessonData) => {
+          const startAt = new Date(lessonData.reservationStartAt);
+          const endAt = new Date(lessonData.reservationEndAt);
+          if (startAt <= data && data <= endAt) {
+            if (
+              !showReservable ||
+              (lessonData.currentMember < lessonData.maxGroupMember &&
+                !exUserData.lessonSchedulesID.includes(
+                  lessonData.lessonSchduleID
+                ))
+            ) {
+              return (
+                <ReservationListBox
+                  key={lessonData.lessonSchduleID}
+                  lessonStartAt={lessonData.lessonStartAt}
+                  lessonEndAt={lessonData.lessonEndAt}
+                  lessonTitle={lessonData.lessonTitle}
+                  tutorName={lessonData.tutorName}
+                  currentMember={lessonData.currentMember}
+                  maxGroupMember={lessonData.maxGroupMember}
+                  lessonSchduleID={lessonData.lessonSchduleID}
+                  userLessonSchedules={exUserData.lessonSchedulesID}
+                />
+              );
+            }
+          }
+          return null;
+        })}
       </div>
     </>
   );
 };
-
 const ReservedLecturesTab = () => {
   return (
     <>
