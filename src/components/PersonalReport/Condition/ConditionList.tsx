@@ -28,7 +28,7 @@ const condition = {
 
 const ConditionList = () => {
   return (
-    <ul className="flex justify-between mt-4">
+    <ul className="mt-4 flex justify-between ">
       {condition.items.map((item) => (
         <Condition
           key={item.date}
