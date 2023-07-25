@@ -16,6 +16,7 @@ const AppRouter = () => {
         <Route path="/personal" element={<PersonalListPage />} />
         <Route path="/personal/:uuid" element={<PersonalDetailPage />} />
         <Route path="/reservation" element={<ReservationPage />} />
+        <Route path="/reservation-reserved" element={<ReservationPage />} />
       </Routes>
     </BrowserRouter>
   );
