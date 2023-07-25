@@ -48,7 +48,7 @@ const PersonalListPage = () => {
   };
 
   const [personalData, setPersonalData] = useState<Data[]>(exData.datas);
-  const [sortOption, setSortOption] = useState<string>("latest"); // 정렬 옵션 상태
+  const [sortOption, setSortOption] = useState<string>("latest");
 
   useEffect(() => {
     const sortedData = personalData.slice();
@@ -66,16 +66,33 @@ const PersonalListPage = () => {
         );
         break;
       case "good":
-        sortedData.sort((a, b) => Number(b.condition) - Number(a.condition));
+        sortedData.sort((a, b) => {
+          const conditionComparison = Number(b.condition) - Number(a.condition);
+          if (conditionComparison !== 0) {
+            return conditionComparison;
+          }
+
+          return (
+            new Date(b.createDate).getTime() - new Date(a.createDate).getTime()
+          );
+        });
         break;
       case "bad":
-        sortedData.sort((a, b) => Number(a.condition) - Number(b.condition));
+        sortedData.sort((a, b) => {
+          const conditionComparison = Number(a.condition) - Number(b.condition);
+          if (conditionComparison !== 0) {
+            return conditionComparison;
+          }
+          return (
+            new Date(b.createDate).getTime() - new Date(a.createDate).getTime()
+          );
+        });
         break;
       default:
         break;
     }
     setPersonalData(sortedData);
-  }, [sortOption, personalData]);
+  }, [sortOption]);
 
   return (
     <>
