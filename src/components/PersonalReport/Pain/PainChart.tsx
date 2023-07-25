@@ -111,31 +111,38 @@ const PainChart = () => {
     setRechartsData();
   }, [bodyCode]);
   return (
-    <div>
-      <select name="" id="" onChange={onChangeOptionHandler}>
-        <option value={0}>0</option>
-        <option value={1}>1</option>
-        <option value={2}>2</option>
-      </select>
-      <div>
-        <LineChart width={350} height={200} data={painData}>
-          <CartesianGrid vertical={false} />
+    <div className="mt-4 p-3 border rounded-lg">
+      <div className="w-40 px-4 py-2 border text-xs rounded-md">
+        <select onChange={onChangeOptionHandler}>
+          <option value={0}>어깨 전면</option>
+          <option value={1}>허리 전면</option>
+          <option value={2}>하체</option>
+        </select>
+      </div>
+      <div className="mt-3 text-gray-300">
+        <LineChart width={300} height={200} data={painData}>
+          <CartesianGrid vertical={false} stroke="#e7e7e7" />
           <Line
             type={"monotone"}
             dataKey={"uv"}
-            dot={{ strokeWidth: 5, fill: "blue" }}
+            stroke="#BFD1FF"
+            strokeWidth={2}
+            dot={{ stroke: "#6691FF", strokeWidth: 5, fill: "#6691FF" }}
           />
           <XAxis
             dataKey="name"
             tickLine={false}
+            height={15}
             interval={0}
             padding={{ left: 15, right: 15 }}
+            stroke="#aeaeae"
             className="text-[10px]"
           />
           <YAxis
-            width={30}
+            width={10}
             axisLine={false}
             tickLine={false}
+            stroke="#aeaeae"
             className="text-[10px]"
           />
         </LineChart>

@@ -13,7 +13,7 @@ const personalReports = {
     {
       id: 6,
       uuid: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      createDate: "2023-07-20T06:36:46.798Z",
+      createDate: "2023-07-23T06:36:46.798Z",
     },
     {
       id: 0,
@@ -105,45 +105,19 @@ const DateSlider = () => {
   }, []);
 
   return (
-    <section>
-      <div>
+    <section className="mt-3 p-2 border rounded-lg">
+      <div className="flex justify-between">
         {dates?.map((date: DateInfo) => (
           <Link key={date.date} to={`/personal/${date.id}`}>
             <div
-              style={
+              className={[
+                "w-8 h-8 text-xs flex justify-center items-center rounded-full",
                 date.isData
                   ? date.date === todayDate
-                    ? {
-                        height: 30,
-                        width: 30,
-                        color: "white",
-                        backgroundColor: "blue",
-                        borderRadius: 50,
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }
-                    : {
-                        height: 30,
-                        width: 30,
-                        color: "blue",
-                        border: "1px solid blue",
-                        borderRadius: 50,
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }
-                  : {
-                      height: 30,
-                      width: 30,
-                      color: "white",
-                      backgroundColor: "gray",
-                      borderRadius: 50,
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }
-              }
+                    ? "text-white bg-[#2D62EA]"
+                    : "border text-[#2D62EA] border-[#2D62EA]"
+                  : "text-white bg-[#B4B4B4]",
+              ].join(" ")}
             >
               {date.date}
             </div>

@@ -28,11 +28,11 @@ const condition = {
 
 const ConditionList = () => {
   return (
-    <ul>
+    <ul className="mt-4 flex justify-between ">
       {condition.items.map((item) => (
         <Condition
           key={item.date}
-          date={item.date.replaceAll("-", ".")}
+          date={item.date.slice(2, 10).replaceAll("-", ".")}
           condition={item.condition}
         />
       ))}

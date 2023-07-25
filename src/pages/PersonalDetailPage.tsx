@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-import DateSlider from "../components/DateSlider";
-import DetailSection from "../components/DetailSection";
-import CommentSection from "../components/CommentSection";
-import ShareSection from "../components/ShareSection";
+import DateSlider from "../components/PersonalReport/DateSlider/DateSlider";
+import DetailSection from "../components/PersonalReport/DetailSection";
+import CommentSection from "../components/PersonalReport/Comment/CommentSection";
+import ShareSection from "../components/PersonalReport/Share/ShareSection";
+import CompanySection from "../components/PersonalReport/Company/CompanySection";
 
 const personalReport = {
   uuid: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
@@ -111,14 +112,31 @@ const personalReport = {
 
 const PersonalDetailPage = () => {
   return (
-    <div className="bg-white">
+    <div className="px-4 py-6">
       {/* 페이지 헤더 */}
-      <header>
-        <div>
-          <div>{personalReport.member.name} 회원님</div>
-          <Link to={"/personal"}>과거 피드백 보러가기</Link>
+      <header className="flex justify-between items-center">
+        <div className="flex items-end gap-2">
+          <div className="text-2xl font-bold">
+            {personalReport.member.name} 회원님
+          </div>
+          <Link to={"/personal"} className="text-xs text-[#7C7C7C]">
+            과거 피드백 보러가기 〉
+          </Link>
         </div>
-        <Link to={"/alarm"}>🛎</Link>
+        <Link to={"/alarm"}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="21"
+            viewBox="0 0 18 21"
+            fill="none"
+          >
+            <path
+              d="M7 19H11C11 20.1 10.1 21 9 21C7.9 21 7 20.1 7 19ZM18 17V18H0V17L2 15V9C2 5.9 4 3.2 7 2.3V2C7 0.9 7.9 0 9 0C10.1 0 11 0.9 11 2V2.3C14 3.2 16 5.9 16 9V15L18 17ZM14 9C14 6.2 11.8 4 9 4C6.2 4 4 6.2 4 9V16H14V9Z"
+              fill="black"
+            />
+          </svg>
+        </Link>
       </header>
       {/* 주간 레포트 날짜 별 슬라이드 */}
       <DateSlider />
@@ -137,19 +155,7 @@ const PersonalDetailPage = () => {
       {/* 공유 섹션 */}
       <ShareSection name={personalReport.member.name} />
       {/* 컴퍼니 섹션 */}
-      <section>
-        <div>
-          <div>🏢</div>
-          <div>포인티 센터</div>
-        </div>
-        <div>
-          <div>서울시 남부순환로 1801, 라피스 빌딩 8층</div>
-          <div>02-840-9002</div>
-          <div>
-            카카오톡 문의: <Link to={"#"}>포인티 센터 바로가기</Link>
-          </div>
-        </div>
-      </section>
+      <CompanySection />
     </div>
   );
 };
