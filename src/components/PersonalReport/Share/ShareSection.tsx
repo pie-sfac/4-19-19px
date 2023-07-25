@@ -10,7 +10,7 @@ const ShareSection = ({ name }: PropType) => {
         <div className="text-sm font-semibold">
           퍼스널 레포트를 공유해 보세요
         </div>
-        <div className="text-xs text-gray-700">
+        <div className="text-xs text-[#505050]">
           내가 작성한 만족도를 제외한 모든 정보가 함께 전달됩니다.
         </div>
         <div className="mt-4">
@@ -37,7 +37,7 @@ const ShareSection = ({ name }: PropType) => {
                   </defs>
                 </svg>
               </div>
-              <span className="text-[10px] text-gray-700">링크 복사</span>
+              <span className="text-[10px] text-[#505050]">링크 복사</span>
             </li>
             <li className="cursor-pointer flex flex-col items-center gap-1">
               <div className="w-12 h-12 border rounded-full flex justify-center items-center">
@@ -61,7 +61,7 @@ const ShareSection = ({ name }: PropType) => {
                   </defs>
                 </svg>
               </div>
-              <span className="text-[10px] text-gray-700">카카오톡</span>
+              <span className="text-[10px] text-[#505050]">카카오톡</span>
             </li>
           </ul>
         </div>

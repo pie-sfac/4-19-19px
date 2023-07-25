@@ -259,8 +259,8 @@ const Condition = ({ date, condition }: PropType) => {
         )}
       </div>
       <div className="flex flex-col items-center gap-1">
-        <span className="text-xs text-blue-600">{condition}</span>
-        <span className="text-[10px] text-gray-400">{date}</span>
+        <span className="text-xs text-[#2D62EA]">{condition}</span>
+        <span className="text-[10px] text-[#AEAEAE]">{date}</span>
       </div>
     </li>
   );

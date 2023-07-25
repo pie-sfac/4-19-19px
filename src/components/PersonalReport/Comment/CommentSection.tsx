@@ -202,16 +202,16 @@ const CommentSection = () => {
               rows={10}
               placeholder="후기를 작성해주세요."
               onChange={onChangeReview}
-              className="p-3 text-sm font-light border rounded-lg resize-none"
+              className="p-3 text-sm font-light border rounded-lg resize-none focus:outline-none"
             ></textarea>
-            <div className="self-end py-2 text-sm font-light text-gray-400">
+            <div className="self-end py-2 text-sm font-light text-[#CFCFCF]">
               {review.length}/800자
             </div>
           </div>
           <input
             type="submit"
             value={"만족도 및 후기 발송"}
-            className="cursor-pointer w-full py-2 rounded-lg text-gray-400 bg-gray-100"
+            className="cursor-pointer w-full py-2 rounded-lg text-[#AEAEAE] bg-[#F4F4F4]"
           />
         </form>
       </div>
