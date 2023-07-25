@@ -8,17 +8,21 @@ interface PersonalData {
 interface PersonReportList {
   datas: PersonalData[];
   meta: {
-    totalCount: 0,
-    size: 0,
-    count: 0,
-    page: 0,
-    hasMore: true,
+    totalCount: 0;
+    size: 0;
+    count: 0;
+    page: 0;
+    hasMore: true;
   };
   message: "string";
 }
-export const reportListFetcher = (url: string) => fetch(url).then(res => res.json());
+export const reportListFetcher = (url: string) =>
+  fetch(url).then((res) => res.json());
 const PersonalReportListApi = () => {
-  const { data, error, isLoading } = useSWR < PersonReportList > ("personal-report-list", reportListFetcher);
+  const { data, error, isLoading } = useSWR<PersonReportList>(
+    "personal-report-list",
+    reportListFetcher
+  );
   return { data, error, isLoading };
 };
 export default PersonalReportListApi;
