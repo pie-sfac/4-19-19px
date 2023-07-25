@@ -111,7 +111,7 @@ const PainChart = () => {
     setRechartsData();
   }, [bodyCode]);
   return (
-    <div className="mt-3 p-3 border rounded-lg">
+    <div className="mt-4 p-3 border rounded-lg">
       <div className="w-40 px-4 py-2 border text-xs rounded-md">
         <select onChange={onChangeOptionHandler}>
           <option value={0}>어깨 전면</option>
