@@ -105,18 +105,19 @@ const DateSlider = () => {
   }, []);
 
   return (
-    <section className="mt-3 p-2 border rounded-md border-gray-300">
+    <section className="mt-3 p-2 border rounded-lg">
       <div className="flex justify-between">
         {dates?.map((date: DateInfo) => (
           <Link key={date.date} to={`/personal/${date.id}`}>
             <div
-              className={
+              className={[
+                "w-8 h-8 text-xs flex justify-center items-center rounded-full",
                 date.isData
                   ? date.date === todayDate
-                    ? "w-8 h-8 flex justify-center items-center rounded-full text-white bg-blue-600"
-                    : "w-8 h-8 flex justify-center items-center border rounded-full text-blue-600 border-blue-600"
-                  : "w-8 h-8 flex justify-center items-center rounded-full text-white bg-gray-500"
-              }
+                    ? "text-white bg-[#2D62EA]"
+                    : "border text-[#2D62EA] border-[#2D62EA]"
+                  : "text-white bg-[#B4B4B4]",
+              ].join(" ")}
             >
               {date.date}
             </div>
