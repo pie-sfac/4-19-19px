@@ -14,7 +14,7 @@ const AppRouter = () => {
       <BrowserRouter>
         <div className="px-4 pb-10">
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<PersonalDetailPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/alarm" element={<NotificationPage />} />
             <Route path="/personal" element={<PersonalListPage />} />
