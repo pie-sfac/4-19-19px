@@ -148,6 +148,7 @@ const MediaSection = () => {
         <MediaListBox
           key={item.uuid}
           type={item.type}
+          uuid={item.uuid}
           url={item.url}
           thumbnailUrl={item.thumbnailUrl}
         />
