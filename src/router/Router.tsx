@@ -12,7 +12,7 @@ const AppRouter = () => {
   return (
     <>
       <BrowserRouter>
-        <div className="px-4">
+        <div className="px-4 pb-10">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
