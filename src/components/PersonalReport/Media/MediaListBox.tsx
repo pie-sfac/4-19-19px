@@ -2,22 +2,24 @@ import { Link } from "react-router-dom";
 
 interface MediaListBoxProp {
   type: string;
-  uuid?: string;
+  uuid: string;
   url: string;
   thumbnailUrl: string;
 }
 
-const MediaListBox = ({ type, url, thumbnailUrl }: MediaListBoxProp) => {
+const MediaListBox = ({ type, uuid, url, thumbnailUrl }: MediaListBoxProp) => {
   return (
     <li>
-      <Link to={"#"}>
-        {type === "IMAGE" && (
+      {type === "IMAGE" && (
+        <Link to={"#"}>
           <div
             className="w-24 aspect-square rounded-md bg-cover"
             style={{ backgroundImage: `url(${thumbnailUrl})` }}
           />
-        )}
-        {type === "VIDEO" && (
+        </Link>
+      )}
+      {type === "VIDEO" && (
+        <Link to={`/personal/video/${uuid}`} state={url}>
           <div
             className="w-24 aspect-square rounded-md flex justify-center items-center bg-cover"
             style={{
@@ -37,8 +39,8 @@ const MediaListBox = ({ type, url, thumbnailUrl }: MediaListBoxProp) => {
               />
             </svg>
           </div>
-        )}
-      </Link>
+        </Link>
+      )}
     </li>
   );
 };
