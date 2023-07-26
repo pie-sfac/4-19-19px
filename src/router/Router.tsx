@@ -10,43 +10,23 @@ import NavigationBar from "../components/NavigationBar";
 
 const AppRouter = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={<HomePage />}
-        />
-        <Route
-          path="/login"
-          element={<LoginPage />}
-        />
-        <Route
-          path="/alarm"
-          element={<NotificationPage />}
-        />
-        <Route
-          path="/personal"
-          element={<PersonalListPage />}
-        />
-        <Route
-          path="/personal/video/:id"
-          element={<VideoPage />}
-        />
-        <Route
-          path="/personal/:uuid"
-          element={<PersonalDetailPage />}
-        />
-        <Route
-          path="/reservation"
-          element={<ReservationPage />}
-        />
-        <Route
-          path="/reservation-reserved"
-          element={<ReservationPage />}
-        />
-      </Routes>
-      {location.pathname !== "/login" && <NavigationBar />}
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <div className="px-4 pb-10">
+          <Routes>
+            <Route path="/" element={<PersonalDetailPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/alarm" element={<NotificationPage />} />
+            <Route path="/personal" element={<PersonalListPage />} />
+            <Route path="/personal/video/:id" element={<VideoPage />} />
+            <Route path="/personal/:uuid" element={<PersonalDetailPage />} />
+            <Route path="/reservation" element={<ReservationPage />} />
+            <Route path="/reservation-reserved" element={<ReservationPage />} />
+          </Routes>
+        </div>
+        {location.pathname !== "/login" && <NavigationBar />}
+      </BrowserRouter>
+    </>
   );
 };
 

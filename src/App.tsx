@@ -5,7 +5,7 @@ Modal.setAppElement("#root");
 
 function App() {
   return (
-    <div className="w-[390px] px-4 bg-white mx-auto mt-10">
+    <div className="w-[390px] min-h-screen bg-white mx-auto">
       <AppRouter />
     </div>
   );
