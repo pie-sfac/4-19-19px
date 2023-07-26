@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Modal from "react-modal";
+import { useUserReservationData } from "../libs/useUserReservationData";
 
 interface ReservationListBoxProp {
   lessonStartAt: string;
@@ -20,7 +21,7 @@ interface ReservationPopupProps {
   tutorName: string;
   message: string;
   maxGroupMember: number;
-  handleReservation: () => void;
+  handleReservationButton: () => void;
   remainingSpots: number;
   isReserved: boolean;
 }
@@ -33,7 +34,7 @@ const ReservationPopup = ({
   tutorName,
   message,
   maxGroupMember,
-  handleReservation,
+  handleReservationButton,
   remainingSpots,
   isReserved,
 }: ReservationPopupProps) => {
@@ -77,7 +78,7 @@ const ReservationPopup = ({
         </div>
         <div className="flex justify-center mt-5">
           <button
-            onClick={handleReservation}
+            onClick={handleReservationButton}
             className={
               isReserved
                 ? "bg-[#434343] text-white rounded-2xl w-[100px] h-[35px] text-xs"
@@ -115,6 +116,21 @@ const ReservationListBox = ({
 
   const isReserved =
     userLessonSchedules && userLessonSchedules.includes(lessonSchduleID);
+
+  const { data: userReservationData, mutate } = useUserReservationData();
+
+  const handleReservationButton = () => {
+    if (isReserved) {
+      mutate(lessonSchduleID);
+      setModalIsOpen(false);
+    } else if (remainingSpots === 0) {
+      console.log(lessonSchduleID);
+      setModalIsOpen(false);
+    } else {
+      mutate(lessonSchduleID);
+      setModalIsOpen(false);
+    }
+  };
 
   const handleReservation = () => {
     if (isReserved) {
@@ -166,7 +182,7 @@ const ReservationListBox = ({
         lessonTitle={lessonTitle}
         tutorName={tutorName}
         remainingSpots={remainingSpots}
-        handleReservation={handleReservation}
+        handleReservationButton={handleReservationButton}
         message={message}
         maxGroupMember={maxGroupMember}
         isReserved={isReserved}
