@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import ReservationDateButton from "../components/ReservationDateButton";
 import ReservationListBox from "../components/ReservationListBox";
 import { useSelectedDate } from "../libs/useSelectedDate";
+import { useUserReservationData } from "../libs/useUserReservationData";
 
 const exLessonData = {
   schedules: [
@@ -14,7 +15,7 @@ const exLessonData = {
       maxGroupMember: 4,
       currentMember: 0,
       reservationStartAt: "2023-07-24T11:41:12.485Z",
-      reservationEndAt: "2023-07-24T11:41:12.485Z",
+      reservationEndAt: "2023-07-25T00:00:00.485Z",
       tutorName: "홍길동",
       lessonStartAt: "07:00",
       lessonEndAt: "08:30",
@@ -65,23 +66,13 @@ const exLessonData = {
       lessonDuration: 0,
       maxGroupMember: 4,
       currentMember: 4,
-      reservationStartAt: "2023-07-26T11:41:12.485Z",
-      reservationEndAt: "2023-07-27T11:41:12.485Z",
+      reservationStartAt: "2023-07-25T11:41:12.485Z",
+      reservationEndAt: "2023-07-28T11:41:12.485Z",
       tutorName: "홍길동",
       lessonStartAt: "07:00",
       lessonEndAt: "08:30",
     },
   ],
-};
-
-const exUserData = {
-  users: [
-    {
-      id: 0,
-      name: "string",
-    },
-  ],
-  lessonSchedulesID: [2, 3],
 };
 
 interface LessonData {
@@ -100,7 +91,6 @@ interface LessonData {
 
 const ReservationPage = () => {
   const [activeTab, setActiveTab] = useState<string>("all");
-
   const handleTabChange = (tab: string) => {
     setActiveTab(tab);
   };
@@ -145,6 +135,7 @@ const ReservationPage = () => {
 const AllLecturesTab = () => {
   const { data } = useSelectedDate();
   const [showReservable, setShowReservable] = useState<boolean>(false);
+  const { data: userReservationData } = useUserReservationData();
 
   const handleToggleReservable = () => {
     setShowReservable((prev) => !prev);
@@ -181,7 +172,7 @@ const AllLecturesTab = () => {
             if (
               !showReservable ||
               (lessonData.currentMember < lessonData.maxGroupMember &&
-                !exUserData.lessonSchedulesID.includes(
+                !userReservationData.lessonSchedulesID.includes(
                   lessonData.lessonSchduleID
                 ))
             ) {
@@ -195,7 +186,7 @@ const AllLecturesTab = () => {
                   currentMember={lessonData.currentMember}
                   maxGroupMember={lessonData.maxGroupMember}
                   lessonSchduleID={lessonData.lessonSchduleID}
-                  userLessonSchedules={exUserData.lessonSchedulesID}
+                  userLessonSchedules={userReservationData.lessonSchedulesID}
                 />
               );
             }
@@ -207,12 +198,15 @@ const AllLecturesTab = () => {
   );
 };
 const ReservedLecturesTab = () => {
+  const { data: userReservationData } = useUserReservationData();
   return (
     <>
       <ReservationDateButton />
       <div>
         {exLessonData.schedules.map((data) => {
-          if (exUserData.lessonSchedulesID.includes(data.lessonSchduleID)) {
+          if (
+            userReservationData.lessonSchedulesID.includes(data.lessonSchduleID)
+          ) {
             return (
               <ReservationListBox
                 key={data.lessonSchduleID}
@@ -223,7 +217,7 @@ const ReservedLecturesTab = () => {
                 currentMember={data.currentMember}
                 maxGroupMember={data.maxGroupMember}
                 lessonSchduleID={data.lessonSchduleID}
-                userLessonSchedules={exUserData.lessonSchedulesID}
+                userLessonSchedules={userReservationData.lessonSchedulesID}
               />
             );
           }
