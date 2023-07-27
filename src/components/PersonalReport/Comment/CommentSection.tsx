@@ -1,19 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const CommentSection = () => {
   const [starPoint, setStarPoint] = useState<number>(0);
   const [review, setReview] = useState<string>("");
+  const [isButtonActive, setIsButtonActive] = useState(false);
 
   const onChangeReview = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const {
       target: { value },
     } = event;
-    setReview(value);
+    if (value.length <= 800) {
+      setReview(value);
+    }
   };
 
   const onClickStarPoint = (point: number) => {
     setStarPoint(point);
   };
+
+  useEffect(() => {
+    if (starPoint > 0 && review.length > 0) {
+      setIsButtonActive(true);
+    } else {
+      setIsButtonActive(false);
+    }
+  }, [starPoint, review]);
+
   return (
     <section className="mt-10">
       <div className="text-base base font-bold text-center">만족도 및 후기</div>
@@ -201,6 +213,7 @@ const CommentSection = () => {
               cols={40}
               rows={10}
               placeholder="후기를 작성해주세요."
+              value={review}
               onChange={onChangeReview}
               className="p-3 text-sm font-light border rounded-lg resize-none focus:outline-none"
             ></textarea>
@@ -211,7 +224,12 @@ const CommentSection = () => {
           <input
             type="submit"
             value={"만족도 및 후기 발송"}
-            className="cursor-pointer w-full py-2 rounded-lg text-[#AEAEAE] bg-[#F4F4F4]"
+            className={[
+              " w-full py-2 rounded-lg ",
+              isButtonActive
+                ? "cursor-pointer text-white bg-[#2D62EA]"
+                : "text-[#AEAEAE] bg-[#F4F4F4]",
+            ].join(" ")}
           />
         </form>
       </div>
