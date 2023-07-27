@@ -155,7 +155,7 @@ const PersonalDetailPage = ({ type }: PersonalDetailPageProp) => {
       {/* 컨디션 섹션 */}
       <DetailSection type="condition" />
       {/* 후기 섹션 */}
-      <CommentSection />
+      <CommentSection reportId={personalReport.uuid} />
       {/* 공유 섹션 */}
       <ShareSection name={personalReport.member.name} />
       {/* 컴퍼니 섹션 */}

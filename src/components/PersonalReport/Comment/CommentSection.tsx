@@ -1,9 +1,21 @@
 import { useEffect, useState } from "react";
+import useComment from "../../../api/personal/useComment";
 
-const CommentSection = () => {
+interface CommentSectionProp {
+  reportId: string;
+}
+
+const CommentSection = ({ reportId }: CommentSectionProp) => {
   const [starPoint, setStarPoint] = useState<number>(0);
   const [review, setReview] = useState<string>("");
   const [isButtonActive, setIsButtonActive] = useState(false);
+
+  const onSubmitComment = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (isButtonActive) {
+      useComment({ rating: starPoint, content: review, reportId });
+    }
+  };
 
   const onChangeReview = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const {
@@ -30,7 +42,7 @@ const CommentSection = () => {
     <section className="mt-10">
       <div className="text-base base font-bold text-center">만족도 및 후기</div>
       <div className="text-center mt-2">
-        <form>
+        <form onSubmit={onSubmitComment}>
           <div className="flex justify-center gap-2">
             <label htmlFor="star1">
               {starPoint > 0 ? (
