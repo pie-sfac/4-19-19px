@@ -51,13 +51,13 @@ const ReservationPopup = ({
           transform: "translate(-50%, -50%)",
           border: "1px solid #ccc",
           background: "#fff",
-          overflow: "auto",
           WebkitOverflowScrolling: "touch",
           borderRadius: "10px",
           outline: "none",
           padding: "30px",
           width: "320px",
           height: "140px",
+          overflow: "hidden",
         },
       }}
     >

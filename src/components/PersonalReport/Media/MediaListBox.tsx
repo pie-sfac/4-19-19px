@@ -32,22 +32,31 @@ const ImageViewer = ({ isOpen, onClose, thumbnailUrl }: ImageViewerProp) => {
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          border: "none",
           background: "rgba(0, 0, 0, 0)",
           WebkitOverflowScrolling: "touch",
+          border: "none",
           outline: "none",
           width: "390px",
-          overflow: "hidden",
+          height: "390px",
+          padding: "0",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         },
       }}
     >
-      <div onClick={handleImage}>
-        <img
-          src={thumbnailUrl}
-          alt="Thumbnail"
-          style={{ width: "100%", height: "auto" }}
-        />
-      </div>
+      <img
+        onClick={handleImage}
+        src={thumbnailUrl}
+        alt="Thumbnail"
+        style={{
+          width: "auto",
+          height: "auto",
+          maxWidth: "100%",
+          maxHeight: "100%",
+          objectFit: "cover",
+        }}
+      />
     </Modal>
   );
 };
