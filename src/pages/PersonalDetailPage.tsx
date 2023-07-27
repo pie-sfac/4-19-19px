@@ -110,7 +110,11 @@ const personalReport = {
   },
 };
 
-const PersonalDetailPage = () => {
+export interface PersonalDetailPageProp {
+  type: "home" | "detail";
+}
+
+const PersonalDetailPage = ({ type }: PersonalDetailPageProp) => {
   return (
     <div className="px-4 py-6">
       {/* 페이지 헤더 */}
@@ -139,7 +143,7 @@ const PersonalDetailPage = () => {
         </Link>
       </header>
       {/* 주간 레포트 날짜 별 슬라이드 */}
-      <DateSlider />
+      <DateSlider type={type} />
       {/* 영상 및 이미지 섹션*/}
       <DetailSection type="media" />
       {/* 피드백 섹션 */}
