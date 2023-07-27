@@ -14,12 +14,15 @@ const AppRouter = () => {
       <BrowserRouter>
         <div className="px-4 pb-10">
           <Routes>
-            <Route path="/" element={<PersonalDetailPage />} />
+            <Route path="/" element={<PersonalDetailPage type="home" />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/alarm" element={<NotificationPage />} />
             <Route path="/personal" element={<PersonalListPage />} />
             <Route path="/personal/video/:id" element={<VideoPage />} />
-            <Route path="/personal/:uuid" element={<PersonalDetailPage />} />
+            <Route
+              path="/personal/:uuid"
+              element={<PersonalDetailPage type="detail" />}
+            />
             <Route path="/reservation" element={<ReservationPage />} />
             <Route path="/reservation-reserved" element={<ReservationPage />} />
           </Routes>
