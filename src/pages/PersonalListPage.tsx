@@ -97,8 +97,21 @@ const PersonalListPage = () => {
   return (
     <>
       <div className="px-4 py-4">
-        <Link to={`/`}>
-          <h1 className="text-2xl font-bold">&lt; 퍼스널 리포트</h1>
+        <Link to={`/`} className="flex items-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="17"
+            height="17"
+            viewBox="0 0 8 12"
+            fill="none"
+            className="inline-block mr-2"
+          >
+            <path
+              d="M7.41998 1.41L2.82998 6L7.41998 10.59L5.99998 12L-1.74284e-05 6L5.99998 -6.20702e-08L7.41998 1.41Z"
+              fill="#000"
+            />
+          </svg>
+          <h1 className="inline-block text-2xl font-bold"> 퍼스널 리포트</h1>
         </Link>
       </div>
       <div className="flex justify-end">
