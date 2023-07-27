@@ -75,20 +75,6 @@ const exLessonData = {
   ],
 };
 
-interface LessonData {
-  lessonTitle: string;
-  lessonSchduleID: number;
-  lessonType: string;
-  lessonDuration: number;
-  maxGroupMember: number;
-  currentMember: number;
-  reservationStartAt: string;
-  reservationEndAt: string;
-  tutorName: string;
-  lessonStartAt: string;
-  lessonEndAt: string;
-}
-
 const ReservationPage = () => {
   const [activeTab, setActiveTab] = useState<string>("all");
   const handleTabChange = (tab: string) => {
@@ -142,28 +128,31 @@ const AllLecturesTab = () => {
   };
   return (
     <>
-      <ReservationDateButton />
-      <div className="flex justify-end text-xs font-semibold">
-        <button
-          onClick={handleToggleReservable}
-          className={showReservable ? "text-[#2D62EA] " : "text-[#7c7c7c] "}
-        >
-          {showReservable ? "예약 가능한 강의" : "예약 가능한 강의"}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="10"
-            height="7"
-            viewBox="0 0 10 7"
-            fill="none"
-            className="inline-block ml-1"
+      <div className="h-[85px]">
+        <ReservationDateButton />
+        <div className="flex justify-end text-xs font-semibold">
+          <button
+            onClick={handleToggleReservable}
+            className={showReservable ? "text-[#2D62EA] " : "text-[#7c7c7c] "}
           >
-            <path
-              d="M1.175 0.408325L5 4.23333L8.825 0.408325L10 1.59166L5 6.59166L0 1.59166L1.175 0.408325Z"
-              fill={showReservable ? "#2D62EA" : "#7c7c7c"}
-            />
-          </svg>
-        </button>
+            {showReservable ? "예약 가능한 강의" : "예약 가능한 강의"}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="10"
+              height="7"
+              viewBox="0 0 10 7"
+              fill="none"
+              className="inline-block ml-1"
+            >
+              <path
+                d="M1.175 0.408325L5 4.23333L8.825 0.408325L10 1.59166L5 6.59166L0 1.59166L1.175 0.408325Z"
+                fill={showReservable ? "#2D62EA" : "#7c7c7c"}
+              />
+            </svg>
+          </button>
+        </div>
       </div>
+
       <div>
         {exLessonData.schedules.map((lessonData) => {
           const startAt = new Date(lessonData.reservationStartAt);
@@ -201,7 +190,9 @@ const ReservedLecturesTab = () => {
   const { data: userReservationData } = useUserReservationData();
   return (
     <>
-      <ReservationDateButton />
+      <div className="h-[85px]">
+        <ReservationDateButton />
+      </div>
       <div>
         {exLessonData.schedules.map((data) => {
           if (
