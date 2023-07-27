@@ -1,5 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HomePage from "../pages/HomePage";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import LoginPage from "../pages/LoginPage";
 import NotificationPage from "../pages/NotificationPage";
 import PersonalListPage from "../pages/PersonalListPage";
@@ -7,6 +6,7 @@ import PersonalDetailPage from "../pages/PersonalDetailPage";
 import ReservationPage from "../pages/ReservationPage";
 import VideoPage from "../pages/VideoPage";
 import NavigationBar from "../components/NavigationBar";
+import { useEffect, useState } from "react";
 
 const AppRouter = () => {
   return (
@@ -27,7 +27,7 @@ const AppRouter = () => {
             <Route path="/reservation-reserved" element={<ReservationPage />} />
           </Routes>
         </div>
-        {location.pathname !== "/login" && <NavigationBar />}
+        <NavigationBar />
       </BrowserRouter>
     </>
   );
