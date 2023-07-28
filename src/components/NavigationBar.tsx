@@ -24,6 +24,7 @@ const NavigationBar: React.FC = () => {
     // 초기 렌더링 시점에 아이콘 색상 설정
     switch (location.pathname) {
       case "/reservation":
+      case "/reservation-reserved":
         setIconStates({
           reservationClicked: true,
           homeClicked: false,
@@ -45,13 +46,22 @@ const NavigationBar: React.FC = () => {
         });
         break;
       default:
+        setIconStates({
+          reservationClicked: false,
+          homeClicked: false,
+          mypageClicked: false,
+        });
         break;
     }
   }, [location.pathname]);
 
   return (
     location.pathname !== "/login" && (
+<<<<<<< HEAD
       <ul className="fixed bottom-0 w-[390px] flex flex-row justify-around py-3 border-t border-[#B4B4B4] bg-white">
+=======
+      <ul className="fixed bottom-0 w-[390px] flex flex-row justify-around py-3 border-t border-gray-400 bg-white">
+>>>>>>> e17ccc6 (fix: NavigationBar 아이콘 렌더링 오류 수정(#27))
         <Link
           to="/reservation"
           onClick={() => handleIconClick("reservationClicked")}
@@ -71,7 +81,14 @@ const NavigationBar: React.FC = () => {
             </svg>
           </li>
         </Link>
+<<<<<<< HEAD
         <Link to="/" onClick={() => handleIconClick("homeClicked")}>
+=======
+        <Link
+          to="/"
+          onClick={() => handleIconClick("homeClicked")}
+        >
+>>>>>>> e17ccc6 (fix: NavigationBar 아이콘 렌더링 오류 수정(#27))
           <li>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -87,7 +104,14 @@ const NavigationBar: React.FC = () => {
             </svg>
           </li>
         </Link>
+<<<<<<< HEAD
         <Link to="/mypage" onClick={() => handleIconClick("mypageClicked")}>
+=======
+        <Link
+          to="/mypage"
+          onClick={() => handleIconClick("mypageClicked")}
+        >
+>>>>>>> e17ccc6 (fix: NavigationBar 아이콘 렌더링 오류 수정(#27))
           <li>
             <svg
               xmlns="http://www.w3.org/2000/svg"
