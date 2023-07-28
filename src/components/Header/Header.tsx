@@ -4,8 +4,6 @@ import PersonalListPageHeader from "./PersonalListPageHeader";
 import ReservationPageHeader from "./ReservationPageHeader";
 import NotificationPageHeader from "./NotificationPageHeader";
 
-export const defaultHeaderStyle = "flex justify-between items-center px-8 py-6";
-
 const Header = () => {
   const location = useLocation();
   return (
