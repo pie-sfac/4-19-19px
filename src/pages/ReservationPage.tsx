@@ -4,6 +4,7 @@ import ReservationDateButton from "../components/ReservationDateButton";
 import ReservationListBox from "../components/ReservationListBox";
 import { useSelectedDate } from "../libs/useSelectedDate";
 import { useUserReservationData } from "../libs/useUserReservationData";
+import Layout from "../components/Layout";
 
 const exLessonData = {
   schedules: [
@@ -82,39 +83,41 @@ const ReservationPage = () => {
   };
 
   return (
-    <div className="px-4 py-4">
-      <ul className="flex justify-between">
-        <li className="w-3/6 text-center ">
-          <NavLink
-            className={({ isActive }) =>
-              isActive
-                ? "border-[#2D62EA] border-b-2 block text-[#2D62EA] font-bold pb-1 "
-                : "text-center border-b block pb-1"
-            }
-            onClick={() => {
-              handleTabChange("all");
-            }}
-            to="/reservation"
-          >
-            전체강의
-          </NavLink>
-        </li>
-        <li className="w-3/6 text-center">
-          <NavLink
-            className={({ isActive }) =>
-              isActive
-                ? "border-[#2D62EA] border-b-2 block text-[#2D62EA] font-bold pb-1 "
-                : "text-center border-b block pb-1"
-            }
-            onClick={() => handleTabChange("reserved")}
-            to="/reservation-reserved"
-          >
-            예약중인 강의
-          </NavLink>
-        </li>
-      </ul>
-      {activeTab === "all" ? <AllLecturesTab /> : <ReservedLecturesTab />}
-    </div>
+    <Layout type="reservation">
+      <div className="px-4 py-4">
+        <ul className="flex justify-between">
+          <li className="w-3/6 text-center ">
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? "border-[#2D62EA] border-b-2 block text-[#2D62EA] font-bold pb-1 "
+                  : "text-center border-b block pb-1"
+              }
+              onClick={() => {
+                handleTabChange("all");
+              }}
+              to="/reservation"
+            >
+              전체강의
+            </NavLink>
+          </li>
+          <li className="w-3/6 text-center">
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? "border-[#2D62EA] border-b-2 block text-[#2D62EA] font-bold pb-1 "
+                  : "text-center border-b block pb-1"
+              }
+              onClick={() => handleTabChange("reserved")}
+              to="/reservation-reserved"
+            >
+              예약중인 강의
+            </NavLink>
+          </li>
+        </ul>
+        {activeTab === "all" ? <AllLecturesTab /> : <ReservedLecturesTab />}
+      </div>
+    </Layout>
   );
 };
 
