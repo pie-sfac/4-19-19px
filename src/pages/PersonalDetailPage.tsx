@@ -1,10 +1,13 @@
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import DateSlider from "../components/PersonalReport/DateSlider/DateSlider";
 import DetailSection from "../components/PersonalReport/DetailSection";
 import CommentSection from "../components/PersonalReport/Comment/CommentSection";
 import ShareSection from "../components/PersonalReport/Share/ShareSection";
 import CompanySection from "../components/PersonalReport/Company/CompanySection";
 import Layout from "../components/Layout";
+import usePersonalReportList from "../api/personal/usePersonalReportList";
+import usePersonalReportDetail from "../api/personal/usePersonalReportDetail";
 
 const personalReport = {
   uuid: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
@@ -116,6 +119,39 @@ export interface PersonalDetailPageProp {
 }
 
 const PersonalDetailPage = ({ type }: PersonalDetailPageProp) => {
+  const [uuid, setUuid] = useState<string | undefined>();
+  const params = useParams();
+  const { data: ListData } = usePersonalReportList();
+  const { data: DetailData } = usePersonalReportDetail(uuid);
+
+  useEffect(() => {
+    if (!ListData) {
+      return;
+    }
+    if (type === "home") {
+      const datas = ListData.datas;
+      let latestUuid;
+      let latestCreateDate = new Date(0);
+      datas.forEach((item) => {
+        const createDate = new Date(item.createDate);
+        if (createDate > latestCreateDate) {
+          latestCreateDate = createDate;
+          latestUuid = item.uuid;
+        }
+      });
+      setUuid(latestUuid);
+    }
+  }, [type, ListData]);
+
+  useEffect(() => {
+    if (!params) {
+      return;
+    }
+    if (type === "detail") {
+      setUuid(params.uuid);
+    }
+  }, [type, params]);
+
   return (
     <Layout type="personalDetail">
       <div className="px-4 pb-6">

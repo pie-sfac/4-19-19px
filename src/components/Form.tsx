@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Input from "./Input";
 import { useNavigate } from "react-router-dom";
+import useLogin from "../api/auth/useLogin";
 
 const Form: React.FC = () => {
   const [username, setUsername] = useState("");
@@ -8,6 +9,7 @@ const Form: React.FC = () => {
   const [isLoginButtonActive, setIsLoginButtonActive] = useState(false);
 
   const navigate = useNavigate();
+  const { handleLogin, isLoggedIn, isUncorrect } = useLogin();
 
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -17,16 +19,23 @@ const Form: React.FC = () => {
     setPassword(event.target.value);
   };
 
-  const handleFormSubmit = (event: React.FormEvent) => {
+  const handleFormSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     //로그인 유무를 확인하는 api와 통신
-    const isLoggedIn = true;
+    handleLogin(username, password);
+  };
+
+  useEffect(() => {
     if (isLoggedIn) {
       navigate("/");
-    } else {
-      alert("아이디, 비밀번호를 확인해주세요");
     }
-  };
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    if (isUncorrect) {
+      alert("x");
+    }
+  }, [isUncorrect]);
 
   useEffect(() => {
     if (username.trim() !== "" && password.trim() !== "") {
@@ -38,21 +47,10 @@ const Form: React.FC = () => {
 
   return (
     <form onSubmit={handleFormSubmit}>
-      <Input
-        type="text"
-        value={username}
-        onChange={handleUsernameChange}
-      />
-      <Input
-        type="password"
-        value={password}
-        onChange={handlePasswordChange}
-      />
+      <Input type="text" value={username} onChange={handleUsernameChange} />
+      <Input type="password" value={password} onChange={handlePasswordChange} />
       {/* 추후 눈모양 아이콘으로 수정? + CSS로 토글 위치 수정  */}
-      <Input
-        type="submit"
-        isLoginButtonActive={isLoginButtonActive}
-      />
+      <Input type="submit" isLoginButtonActive={isLoginButtonActive} />
     </form>
   );
 };
