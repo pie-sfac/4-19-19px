@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import PersonalListBox from "../components/PersonalListBox";
 import { Link } from "react-router-dom";
+import Layout from "../components/Layout";
 
 interface Data {
   id: number;
@@ -95,7 +96,7 @@ const PersonalListPage = () => {
   }, [sortOption]);
 
   return (
-    <>
+    <Layout type="personalList">
       <div className="flex justify-end">
         <select
           value={sortOption}
@@ -117,7 +118,7 @@ const PersonalListPage = () => {
           />
         ))}
       </div>
-    </>
+    </Layout>
   );
 };
 

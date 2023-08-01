@@ -4,6 +4,7 @@ import DetailSection from "../components/PersonalReport/DetailSection";
 import CommentSection from "../components/PersonalReport/Comment/CommentSection";
 import ShareSection from "../components/PersonalReport/Share/ShareSection";
 import CompanySection from "../components/PersonalReport/Company/CompanySection";
+import Layout from "../components/Layout";
 
 const personalReport = {
   uuid: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
@@ -116,25 +117,27 @@ export interface PersonalDetailPageProp {
 
 const PersonalDetailPage = ({ type }: PersonalDetailPageProp) => {
   return (
-    <div className="px-4 pb-6">
-      <DateSlider type={type} />
-      {/* 영상 및 이미지 섹션*/}
-      <DetailSection type="media" />
-      {/* 피드백 섹션 */}
-      <DetailSection type="feedback" />
-      {/* 센터 추천 링크 섹션 */}
-      <DetailSection type="recommend" />
-      {/* 통증 섹션 */}
-      <DetailSection type="pain" />
-      {/* 컨디션 섹션 */}
-      <DetailSection type="condition" />
-      {/* 후기 섹션 */}
-      <CommentSection reportId={personalReport.uuid} />
-      {/* 공유 섹션 */}
-      <ShareSection name={personalReport.member.name} />
-      {/* 컴퍼니 섹션 */}
-      <CompanySection />
-    </div>
+    <Layout type="personalDetail">
+      <div className="px-4 pb-6">
+        <DateSlider type={type} />
+        {/* 영상 및 이미지 섹션*/}
+        <DetailSection type="media" />
+        {/* 피드백 섹션 */}
+        <DetailSection type="feedback" />
+        {/* 센터 추천 링크 섹션 */}
+        <DetailSection type="recommend" />
+        {/* 통증 섹션 */}
+        <DetailSection type="pain" />
+        {/* 컨디션 섹션 */}
+        <DetailSection type="condition" />
+        {/* 후기 섹션 */}
+        <CommentSection reportId={personalReport.uuid} />
+        {/* 공유 섹션 */}
+        <ShareSection name={personalReport.member.name} />
+        {/* 컴퍼니 섹션 */}
+        <CompanySection />
+      </div>
+    </Layout>
   );
 };
 

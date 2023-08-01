@@ -1,5 +1,9 @@
-import { Link, useLocation } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+
+interface NavigationBarProp {
+  isNavigationDisplay: boolean;
+}
 
 interface IconStates {
   reservationClicked: boolean;
@@ -7,16 +11,12 @@ interface IconStates {
   mypageClicked: boolean;
 }
 
-const NavigationBar: React.FC = () => {
+const NavigationBar = ({ isNavigationDisplay }: NavigationBarProp) => {
   const [iconStates, setIconStates] = useState<IconStates>({
     reservationClicked: false,
     homeClicked: false,
     mypageClicked: false,
   });
-
-  const handleIconClick = (icon: keyof IconStates) => {
-    setIconStates({ ...iconStates, [icon]: true });
-  };
 
   const location = useLocation();
 
@@ -56,12 +56,9 @@ const NavigationBar: React.FC = () => {
   }, [location.pathname]);
 
   return (
-    location.pathname !== "/login" && (
+    isNavigationDisplay && (
       <ul className="fixed bottom-0 w-[390px] flex flex-row justify-around py-3 border-t border-[#B4B4B4] bg-white">
-        <Link
-          to="/reservation"
-          onClick={() => handleIconClick("reservationClicked")}
-        >
+        <Link to="/reservation">
           <li>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -77,10 +74,7 @@ const NavigationBar: React.FC = () => {
             </svg>
           </li>
         </Link>
-        <Link
-          to="/"
-          onClick={() => handleIconClick("homeClicked")}
-        >
+        <Link to="/">
           <li>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -96,10 +90,7 @@ const NavigationBar: React.FC = () => {
             </svg>
           </li>
         </Link>
-        <Link
-          to="/mypage"
-          onClick={() => handleIconClick("mypageClicked")}
-        >
+        <Link to="/mypage">
           <li>
             <svg
               xmlns="http://www.w3.org/2000/svg"

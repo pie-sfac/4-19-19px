@@ -1,3 +1,4 @@
+import Layout from "../components/Layout";
 import NotificationListBox from "../components/NotificationListBox";
 
 const NotificationPage = () => {
@@ -50,16 +51,18 @@ const NotificationPage = () => {
   };
 
   return (
-    <div className="flex flex-col">
-      <p className="font-bold mt-5">알림 메시지 리스트</p>
-      {alarmData.datas.map((data) => (
-        <NotificationListBox
-          key={data.id}
-          createDate={data.createDate}
-          id={data.id}
-        />
-      ))}
-    </div>
+    <Layout type="alarm">
+      <div className="flex flex-col">
+        <p className="font-bold mt-5">알림 메시지 리스트</p>
+        {alarmData.datas.map((data) => (
+          <NotificationListBox
+            key={data.id}
+            createDate={data.createDate}
+            id={data.id}
+          />
+        ))}
+      </div>
+    </Layout>
   );
 };
 

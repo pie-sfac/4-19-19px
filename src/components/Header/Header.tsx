@@ -1,22 +1,21 @@
-import { useLocation } from "react-router-dom"; // useState를 추가합니다
 import PersonalDetailPageHeader from "./PersonalDetailPageHeader";
 import PersonalListPageHeader from "./PersonalListPageHeader";
 import ReservationPageHeader from "./ReservationPageHeader";
 import NotificationPageHeader from "./NotificationPageHeader";
 
-const Header = () => {
-  const location = useLocation();
+interface HeaderProp {
+  type: string;
+}
+
+const Header = ({ type }: HeaderProp) => {
   return (
     <>
-      {location.pathname === "/" && <PersonalDetailPageHeader />}
-      {location.pathname.includes("/personal/") && <PersonalDetailPageHeader />}
-      {location.pathname === "/personal" && <PersonalListPageHeader />}
-      {location.pathname === "/reservation" && <ReservationPageHeader />}
-      {location.pathname === "/reservation-reserved" && (
-        <ReservationPageHeader />
-      )}
-      {location.pathname === "/alarm" && <NotificationPageHeader />}
-      {location.pathname === "/mypage" && <NotificationPageHeader />}
+      {type === "login" && null}
+      {type === "personalDetail" && <PersonalDetailPageHeader />}
+      {type === "personalList" && <PersonalListPageHeader />}
+      {type === "reservation" && <ReservationPageHeader />}
+      {type === "alarm" && <NotificationPageHeader />}
+      {type === "myPage" && <NotificationPageHeader />}
     </>
   );
 };
