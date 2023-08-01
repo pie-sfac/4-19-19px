@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "base-64": "^1.0.0",
     "react": "18.2.0",
     "react-datepicker": "^4.16.0",
     "react-dom": "18.2.0",
@@ -19,6 +20,7 @@
     "swr": "^2.2.0"
   },
   "devDependencies": {
+    "@types/base-64": "^1.0.0",
     "@types/react": "^18.0.28",
     "@types/react-datepicker": "^4.15.0",
     "@types/react-dom": "^18.0.11",
