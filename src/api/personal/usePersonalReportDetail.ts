@@ -1,4 +1,5 @@
 import useSWR from "swr";
+import useTokenCheck from "../../libs/useTokenCheck";
 
 interface UseDetailProp {
   uuid: string;
@@ -67,21 +68,29 @@ interface UseDetailProp {
   };
 }
 
-const useDetailReport = (id: string) => {
-  const { data, error, isLoading } = useSWR<UseDetailProp>( // 데이터 구조인 UseDetailProp 을 지정
-    `http://223.130.161.221/mapi/v1/personal-reports/${id}` // URL에 ${id}를 사용하여 id 값을 전달
+const ACCESS_TOKEN = "accessToken";
+const accessToken = localStorage.getItem(ACCESS_TOKEN);
+const token = accessToken ? JSON.parse(accessToken).token : null;
+
+const fetcher = (url: string) => {
+  return fetch(url, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((res) => res.json());
+};
+
+const usePersonalReportDetail = (uuid: string | undefined) => {
+  const { isCheckLoading } = useTokenCheck();
+  const { data, error, isLoading } = useSWR<UseDetailProp>(
+    !isCheckLoading &&
+      uuid &&
+      `http://223.130.161.221/mapi/v1/personal-reports/${uuid}`,
+    fetcher
   );
   return { data, error, isLoading };
 };
 
-export default useDetailReport;
-
-// Original Code ㄱ
-// const useDetailReport = (id: string) => {
-//   // fetcher는 전역 상태로 주었음을 가정
-//   const { data, error, isLoading } = useSWR(
-//     `http://223.130.161.221/mapi/v1/personal-reports/3fa85f64-5717-4562-b3fc-2c963f66afa6/${id}`
-//   );
-//   return { data, error, isLoading };
-// };
-// export default useDetailReport;
+export default usePersonalReportDetail;

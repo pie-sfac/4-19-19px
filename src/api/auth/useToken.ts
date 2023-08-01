@@ -1,14 +1,41 @@
-const useToken = async ({ token }: any) => {
-  // swr를 사용하지 않는 POST 방법
-  const response = await fetch("http://223.130.161.221/api/v1/tokens", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  const json = await response.json();
-  return { json };
+import { useState, useEffect } from "react";
+import useTokenSave from "../../libs/useTokenSave";
+
+interface useTokenType {
+  getNewAccessToken: (token: string) => Promise<void>;
+  isLoadig: boolean;
+}
+
+const useToken = (): useTokenType => {
+  const [isLoadig, setIsLoading] = useState(true);
+  const [accessToken, setAccessToken] = useState();
+  const { handleAccessToken } = useTokenSave();
+
+  const getNewAccessToken = async (token: string) => {
+    const response = await fetch("http://223.130.161.221/mapi/v1/tokens", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const json = await response.json();
+    if (json.accessToken) {
+      setAccessToken(json.accessToken);
+    } else {
+      // refresh 토큰이 만료
+      // 로그아웃
+    }
+  };
+
+  useEffect(() => {
+    if (accessToken) {
+      handleAccessToken(accessToken);
+      setIsLoading(false);
+    }
+  }, [accessToken, handleAccessToken]);
+
+  return { getNewAccessToken, isLoadig };
 };
 
 export default useToken;

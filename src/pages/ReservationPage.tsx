@@ -5,6 +5,7 @@ import ReservationListBox from "../components/ReservationListBox";
 import { useSelectedDate } from "../libs/useSelectedDate";
 import { useUserReservationData } from "../libs/useUserReservationData";
 import Layout from "../components/Layout";
+import useLessonReservationList from "../api/reservation/useLessonReservationList";
 
 const exLessonData = {
   schedules: [
@@ -81,6 +82,7 @@ const ReservationPage = () => {
   const handleTabChange = (tab: string) => {
     setActiveTab(tab);
   };
+  const { data } = useLessonReservationList();
 
   return (
     <Layout type="reservation">

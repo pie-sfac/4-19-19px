@@ -2,14 +2,13 @@ import { useEffect, useState } from "react";
 import PersonalListBox from "../components/PersonalListBox";
 import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
-
+import usePersonalReportList from "../api/personal/usePersonalReportList";
 interface Data {
   id: number;
   uuid: string;
   createDate: string;
   condition: string;
 }
-
 const PersonalListPage = () => {
   const exData = {
     meta: {
@@ -50,6 +49,7 @@ const PersonalListPage = () => {
 
   const [personalData, setPersonalData] = useState<Data[]>(exData.datas);
   const [sortOption, setSortOption] = useState<string>("latest");
+  const { data } = usePersonalReportList();
 
   useEffect(() => {
     const sortedData = personalData.slice();
@@ -121,5 +121,4 @@ const PersonalListPage = () => {
     </Layout>
   );
 };
-
 export default PersonalListPage;

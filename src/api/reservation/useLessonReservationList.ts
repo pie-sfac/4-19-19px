@@ -1,21 +1,19 @@
 import useSWR from "swr";
 import useTokenCheck from "../../libs/useTokenCheck";
-interface PersonalData {
-  id: 0;
-  uuid: string;
-  createDate: string;
+
+interface Schedule {
+  lessonTitle: string;
+  lessonScheduleID: number;
+  lessonType: string;
+  lessonDuration: number;
+  maxGroupMember: number;
+  reservationStartAt: string;
+  reservationEndAt: string;
+  tutorName: string;
 }
 
-interface PersonReportList {
-  datas: PersonalData[];
-  meta: {
-    totalCount: number;
-    size: number;
-    count: number;
-    page: number;
-    hasMore: boolean;
-  };
-  message: string;
+interface GroupLessonReservation {
+  schedules: Schedule[];
 }
 
 const ACCESS_TOKEN = "accessToken";
@@ -32,12 +30,14 @@ const fetcher = (url: string) => {
   }).then((res) => res.json());
 };
 
-const usePersonalReportList = () => {
+const useLessonReservationList = () => {
   const { isCheckLoading } = useTokenCheck();
-  const { data, error, isLoading } = useSWR<PersonReportList>(
-    !isCheckLoading && "http://223.130.161.221/mapi/v1/personal-reports",
+  const { data, error, isLoading } = useSWR<GroupLessonReservation>(
+    !isCheckLoading && "http://223.130.161.221/mapi/v1/schedules/group-lesson",
     fetcher
   );
+
   return { data, error, isLoading };
 };
-export default usePersonalReportList;
+
+export default useLessonReservationList;
