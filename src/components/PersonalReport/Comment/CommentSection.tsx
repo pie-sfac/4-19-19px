@@ -1,19 +1,148 @@
 import { useEffect, useState } from "react";
+import Modal from "react-modal";
 import useComment from "../../../api/personal/useComment";
 
 interface CommentSectionProp {
   reportId: string;
 }
 
+interface ReservationPopupProp {
+  isOpen: boolean;
+  onClose: () => void;
+  reportId: string;
+  starPoint: number;
+  review: string;
+}
+
+const ReservationPopup = ({
+  isOpen,
+  onClose,
+  reportId,
+  starPoint,
+  review,
+}: ReservationPopupProp) => {
+  const { isSuccess, setIsSuccess } = useState(false);
+  const { handleComment, isOk, isLoading } = useComment();
+  const handleClose = () => {
+    if (isOpen) {
+      onClose();
+    }
+  };
+  const onhandleComment = () => {
+    handleComment({ uuid: reportId, rating: starPoint, content: review });
+  };
+  useEffect(() => {
+    if (isLoading) {
+      return;
+    }
+    if (isLoading && isOk) {
+      setIsSuccess(true);
+    } else if (isLoading && !isOk) {
+      setIsSuccess(false);
+    }
+  }, [isLoading]);
+  return (
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onClose}
+      style={{
+        overlay: { background: "rgba(0, 0, 0, 0.80)" },
+        content: {
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          background: "rgba(0, 0, 0, 0)",
+          WebkitOverflowScrolling: "touch",
+          border: "none",
+          outline: "none",
+          width: "360px",
+          height: "390px",
+          padding: "0",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        },
+      }}
+    >
+      <div className="w-11/12 flex flex-col px-4 py-5 rounded-lg bg-white">
+        <div className="flex justify-end">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            onClick={handleClose}
+          >
+            <path
+              d="M5.70711 4.29289C5.31658 3.90237 4.68342 3.90237 4.29289 4.29289C3.90237 4.68342 3.90237 5.31658 4.29289 5.70711L10.5858 12L4.29289 18.2929C3.90237 18.6834 3.90237 19.3166 4.29289 19.7071C4.68342 20.0976 5.31658 20.0976 5.70711 19.7071L12 13.4142L18.2929 19.7071C18.6834 20.0976 19.3166 20.0976 19.7071 19.7071C20.0976 19.3166 20.0976 18.6834 19.7071 18.2929L13.4142 12L19.7071 5.70711C20.0976 5.31658 20.0976 4.68342 19.7071 4.29289C19.3166 3.90237 18.6834 3.90237 18.2929 4.29289L12 10.5858L5.70711 4.29289Z"
+              fill="black"
+            />
+          </svg>
+        </div>
+        <div className="flex flex-col justify-center items-center gap-2">
+          <div className="text-base font-bold">
+            {isLoading ? "만족도 및 후기 발송" : isSuccess ? "성공" : "실패"}
+          </div>
+          <div className="text-sm font-light text-[#1D1D1D] text-center">
+            {isLoading ? (
+              <span>
+                작성하신 만족도 및 후기를 <br />
+                발송하시겠습니까?
+              </span>
+            ) : isSuccess ? (
+              <span>발송이 완료되었습니다.</span>
+            ) : (
+              <span>
+                발송에 실패하였습니다. <br />
+                다시 시도해 주세요.
+              </span>
+            )}
+          </div>
+        </div>
+        <div className="mt-7 flex justify-center gap-2">
+          {isLoading ? (
+            <>
+              <button
+                className="px-2 py-3 rounded-md bg-gray-100"
+                onClick={handleClose}
+              >
+                <div className="w-32 text-sm font-light">취소</div>
+              </button>
+              <button
+                className="px-2 py-3 rounded-md bg-[#2D62EA]"
+                onClick={onhandleComment}
+              >
+                <div className="w-32 text-sm font-light text-white">
+                  발송하기
+                </div>
+              </button>
+            </>
+          ) : (
+            <button
+              className="px-2 py-3 rounded-md bg-gray-100"
+              onClick={handleClose}
+            >
+              <div className="w-32 text-sm font-light">확인</div>
+            </button>
+          )}
+        </div>
+      </div>
+    </Modal>
+  );
+};
+
 const CommentSection = ({ reportId }: CommentSectionProp) => {
   const [starPoint, setStarPoint] = useState<number>(0);
   const [review, setReview] = useState<string>("");
   const [isButtonActive, setIsButtonActive] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const onSubmitComment = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (isButtonActive) {
-      useComment({ rating: starPoint, content: review, reportId });
+      setIsOpen(true);
     }
   };
 
@@ -245,6 +374,13 @@ const CommentSection = ({ reportId }: CommentSectionProp) => {
           />
         </form>
       </div>
+      <ReservationPopup
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        reportId={reportId}
+        starPoint={starPoint}
+        review={review}
+      />
     </section>
   );
 };
