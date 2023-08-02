@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const PersonalListPageHeader = () => {
   return (
-    <div className="flex items-center justify-between px-8 py-6">
+    <div className="flex items-center justify-between p-4">
       <div className="flex items-center gap-1">
         <Link to={`/`}>
           <p>
@@ -20,13 +20,13 @@ const PersonalListPageHeader = () => {
             </svg>
           </p>
         </Link>
-        <p className="font-bold text-xl">퍼스널 리포트</p>
+        <p className="font-bold text-lg">퍼스널 리포트</p>
       </div>
       <Link to={"/alarm"}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="18"
-          height="21"
+          width="16"
+          height="20"
           viewBox="0 0 18 21"
           fill="none"
         >

@@ -86,7 +86,7 @@ const ReservationPage = () => {
 
   return (
     <Layout type="reservation">
-      <div className="px-4 py-4">
+      <div className="p-4">
         <ul className="flex justify-between">
           <li className="w-3/6 text-center ">
             <NavLink
@@ -135,7 +135,7 @@ const AllLecturesTab = () => {
     <>
       <div className="h-[85px]">
         <ReservationDateButton />
-        <div className="flex justify-end text-xs font-semibold">
+        <div className="flex justify-end text-xs font-semibold ">
           <button
             onClick={handleToggleReservable}
             className={showReservable ? "text-[#2D62EA] " : "text-[#7c7c7c] "}

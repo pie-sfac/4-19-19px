@@ -11,7 +11,7 @@ interface PropType {
 
 const DetailSection = ({ type }: PropType) => {
   return (
-    <section className="mt-6">
+    <section className="mx-4 mt-7">
       <SectionHeader type={type} />
       <div className="mt-2">
         {type === "media" && <MediaSection />}

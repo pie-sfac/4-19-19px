@@ -39,7 +39,7 @@ const CommentSection = ({ reportId }: CommentSectionProp) => {
   }, [starPoint, review]);
 
   return (
-    <section className="mt-10">
+    <section className="mx-4 mt-10">
       <div className="text-base base font-bold text-center">만족도 및 후기</div>
       <div className="text-center mt-2">
         <form onSubmit={onSubmitComment}>

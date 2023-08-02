@@ -10,9 +10,9 @@ interface LayoutProp {
 
 const Layout = ({ children, type, isNavigationDisplay = true }: LayoutProp) => {
   return (
-    <div>
+    <div className="w-[360px] min-h-screen bg-white mx-auto">
       <Header type={type} />
-      <div className="px-4 pb-10 ">{children}</div>
+      <div className="pb-10 ">{children}</div>
       <NavigationBar isNavigationDisplay={isNavigationDisplay} />
     </div>
   );

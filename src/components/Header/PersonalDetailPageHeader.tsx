@@ -107,23 +107,20 @@ const personalReport = {
 
 const PersonalDetailPageHeader = () => {
   return (
-    <div className="flex justify-between items-center px-8 py-6">
-      <div className="flex items-end gap-2">
-        <div className="text-2xl font-bold">
+    <div className="flex justify-between items-center p-4">
+      <div className="flex items-center gap-2">
+        <div className="text-lg font-bold">
           {personalReport.member.name} 회원님
         </div>
-        <Link
-          to={"/personal"}
-          className="text-xs text-[#7C7C7C]"
-        >
+        <Link to={"/personal"} className="text-xs text-[#7C7C7C]">
           과거 피드백 보러가기 〉
         </Link>
       </div>
       <Link to={"/alarm"}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="18"
-          height="21"
+          width="16"
+          height="20"
           viewBox="0 0 18 21"
           fill="none"
         >

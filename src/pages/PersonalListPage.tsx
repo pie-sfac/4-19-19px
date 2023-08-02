@@ -116,7 +116,7 @@ const PersonalListPage = () => {
 
   return (
     <Layout type="personalList">
-      <div className="flex justify-end">
+      <div className="flex justify-end px-4 pb-4 text-sm border-b">
         <select
           value={sortOption}
           onChange={(e) => setSortOption(e.target.value)}
@@ -127,7 +127,7 @@ const PersonalListPage = () => {
           <option value="bad">나쁜순</option>
         </select>
       </div>
-      <div className="px-4 py-4">
+      <div className="p-4">
         {personalData.map((data) => (
           <PersonalListBox
             key={data.id}

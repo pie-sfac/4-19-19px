@@ -52,13 +52,13 @@ const NotificationPage = () => {
 
   return (
     <Layout type="alarm">
-      <div className="flex flex-col px-4">
+      <div className="flex flex-col min-h-screen p-4 bg-gray-100">
         <p className="font-bold mt-5">알림 메시지 리스트</p>
         {alarmData.datas.map((data) => (
           <NotificationListBox
             key={data.id}
             createDate={data.createDate}
-            id={data.id}
+            uuid={data.uuid}
           />
         ))}
       </div>

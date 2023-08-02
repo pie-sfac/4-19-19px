@@ -141,7 +141,7 @@ const DateSlider = ({ type }: PersonalDetailPageProp) => {
 
   return (
     <section
-      className="w-full0 mt-3 p-2 border rounded-lg overflow-auto"
+      className="w-full0 mx-4 mt-3 p-2 border rounded-lg overflow-auto"
       ref={scrollBox}
     >
       <div className="flex justify-between w-[600px] scroll-mt-3">

@@ -4,7 +4,7 @@ interface PropType {
 
 const ShareSection = ({ name }: PropType) => {
   return (
-    <section className="mt-20">
+    <section className="mx-4 mt-10">
       <div>
         <div className="text-sm font-semibold">{name} 회원님의</div>
         <div className="text-sm font-semibold">
