@@ -52,7 +52,7 @@ const NotificationPage = () => {
 
   return (
     <Layout type="alarm">
-      <div className="flex flex-col">
+      <div className="flex flex-col px-4">
         <p className="font-bold mt-5">알림 메시지 리스트</p>
         {alarmData.datas.map((data) => (
           <NotificationListBox
