@@ -10,10 +10,13 @@ const useTokenCheck = () => {
   const REFRESH_TOKEN = "refreshToken";
   const localAccessToken = localStorage.getItem(ACCESS_TOKEN);
   const parsedAceessToken = localAccessToken && JSON.parse(localAccessToken);
-  const tokenExp = parsedAceessToken.exp;
   const currentTime = Date.now();
 
   useEffect(() => {
+    if (!parsedAceessToken) {
+      return;
+    }
+    const tokenExp = parsedAceessToken.exp;
     if (tokenExp * 1000 < currentTime) {
       const localRefreshToken = localStorage.getItem(REFRESH_TOKEN);
       const parsedRefreshToken =
@@ -22,7 +25,7 @@ const useTokenCheck = () => {
     } else {
       setIsCheckLoading(false);
     }
-  }, [tokenExp, currentTime, getNewAccessToken]);
+  }, [parsedAceessToken, currentTime, getNewAccessToken]);
 
   useEffect(() => {
     if (!isLoadig) {
