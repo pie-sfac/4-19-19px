@@ -125,7 +125,7 @@ const PersonalDetailPage = ({ type }: PersonalDetailPageProp) => {
   const { data: DetailData } = usePersonalReportDetail(uuid);
 
   useEffect(() => {
-    if (!ListData) {
+    if (!ListData || ListData.datas.length === 0) {
       return;
     }
     if (type === "home") {
