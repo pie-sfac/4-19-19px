@@ -8,6 +8,7 @@ import CompanySection from "../components/PersonalReport/Company/CompanySection"
 import Layout from "../components/Layout";
 import usePersonalReportList from "../api/personal/usePersonalReportList";
 import usePersonalReportDetail from "../api/personal/usePersonalReportDetail";
+import adImage from "../assets/ad-image.png";
 
 const personalReport = {
   uuid: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
@@ -154,7 +155,11 @@ const PersonalDetailPage = ({ type }: PersonalDetailPageProp) => {
 
   return (
     <Layout type="personalDetail">
-      <div className="px-4 pb-6">
+      <div>
+        <div
+          className="h-14 bg-gray-100 bg-cover"
+          style={{ backgroundImage: `url(${adImage})` }}
+        ></div>
         <DateSlider type={type} />
         {/* 영상 및 이미지 섹션*/}
         <DetailSection type="media" />
@@ -162,12 +167,15 @@ const PersonalDetailPage = ({ type }: PersonalDetailPageProp) => {
         <DetailSection type="feedback" />
         {/* 센터 추천 링크 섹션 */}
         <DetailSection type="recommend" />
+        <div className="h-3 mt-7 bg-gray-100"></div>
         {/* 통증 섹션 */}
         <DetailSection type="pain" />
         {/* 컨디션 섹션 */}
         <DetailSection type="condition" />
+        <div className="h-3 mt-7 bg-gray-100"></div>
         {/* 후기 섹션 */}
         <CommentSection reportId={personalReport.uuid} />
+        <div className="h-3 mt-7 bg-gray-100"></div>
         {/* 공유 섹션 */}
         <ShareSection name={personalReport.member.name} />
         {/* 컴퍼니 섹션 */}

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const CompanySection = () => {
   return (
-    <section className="mt-12 px-4 py-5 text-sm bg-[#F4F4F4]">
+    <section className="mt-12 px-4 pt-5 pb-12 text-sm bg-[#F4F4F4]">
       <div className="flex items-center gap-1">
         <div>
           <svg

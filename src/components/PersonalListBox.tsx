@@ -24,8 +24,8 @@ const PersonalListBox = ({ uuid, createDate, condition }: Prop) => {
   }, []);
   return (
     <Link to={`/personal/${uuid}`}>
-      <div className="flex items-center justify-around px-8 py-5 mt-4 border-2 shadow-md rounded-2xl">
-        <h1 className="text-2xl font-bold text-[#2D62EA]">{newDate}</h1>
+      <div className="flex items-center justify-between px-12 py-4 mt-4 border shadow-md rounded-2xl">
+        <h1 className="text-xl font-bold text-[#2D62EA]">{newDate}</h1>
         {condition === "best" && (
           <svg
             xmlns="http://www.w3.org/2000/svg"

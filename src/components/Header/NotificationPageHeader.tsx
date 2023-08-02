@@ -12,7 +12,7 @@ const NotificationPageHeader = () => {
   };
 
   return (
-    <div className="border-b border-b-1 border-gray-300 px-8 py-6 flex items-center justify-between">
+    <div className="border-b border-b-1 border-gray-300 p-4 flex items-center justify-between">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"
