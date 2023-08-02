@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Modal from "react-modal";
 import { useUserReservationData } from "../libs/useUserReservationData";
+import useLessonReservation from "../api/reservation/useLessonReservation";
+import useLessonReservationCancel from "../api/reservation/useLessonReservationCancel";
 
 interface ReservationListBoxProp {
   lessonStartAt: string;
@@ -25,6 +27,8 @@ interface ReservationPopupProps {
   remainingSpots: number;
   isReserved: boolean;
 }
+
+const reservationId = 0;
 const ReservationPopup = ({
   isOpen,
   onClose,
@@ -118,17 +122,20 @@ const ReservationListBox = ({
     userLessonSchedules && userLessonSchedules.includes(lessonSchduleID);
 
   const { data: userReservationData, mutate } = useUserReservationData();
-
+  const { handleReserve } = useLessonReservation();
+  const { handleCancel } = useLessonReservationCancel();
   const handleReservationButton = () => {
     if (isReserved) {
       mutate(lessonSchduleID);
       setModalIsOpen(false);
+      handleCancel(reservationId);
     } else if (remainingSpots === 0) {
       console.log(lessonSchduleID);
       setModalIsOpen(false);
     } else {
       mutate(lessonSchduleID);
       setModalIsOpen(false);
+      handleReserve(lessonSchduleID);
     }
   };
 
