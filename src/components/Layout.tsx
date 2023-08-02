@@ -10,7 +10,12 @@ interface LayoutProp {
 
 const Layout = ({ children, type, isNavigationDisplay = true }: LayoutProp) => {
   return (
-    <div className="w-[360px] min-h-screen bg-white mx-auto">
+    <div
+      className={[
+        "w-[360px] min-h-screen  mx-auto",
+        type === "video" ? "bg-black" : "bg-white",
+      ].join(" ")}
+    >
       <Header type={type} />
       <div className="pb-10 ">{children}</div>
       <NavigationBar isNavigationDisplay={isNavigationDisplay} />
