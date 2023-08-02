@@ -23,25 +23,31 @@ const PersonalListPage = () => {
         id: 0,
         uuid: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
         createDate: "2023-07-01T07:29:45.701Z",
-        condition: "5",
+        condition: "best",
       },
       {
         id: 1,
         uuid: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
         createDate: "2023-07-10T07:29:45.701Z",
-        condition: "3",
+        condition: "good",
       },
       {
         id: 2,
         uuid: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
         createDate: "2023-07-19T07:29:45.701Z",
-        condition: "1",
+        condition: "normal",
       },
       {
         id: 3,
         uuid: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
         createDate: "2023-07-20T07:29:45.701Z",
-        condition: "5",
+        condition: "bad",
+      },
+      {
+        id: 4,
+        uuid: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        createDate: "2023-07-20T07:29:45.701Z",
+        condition: "worst",
       },
     ],
     message: "string",
@@ -51,8 +57,19 @@ const PersonalListPage = () => {
   const [sortOption, setSortOption] = useState<string>("latest");
   const { data } = usePersonalReportList();
 
+  const handleCondition = (condition: string) => {
+    let conditionNumber = 0;
+    if (condition === "best") conditionNumber = 5;
+    if (condition === "good") conditionNumber = 4;
+    if (condition === "normal") conditionNumber = 3;
+    if (condition === "bad") conditionNumber = 2;
+    if (condition === "worst") conditionNumber = 1;
+    return conditionNumber;
+  };
+
   useEffect(() => {
     const sortedData = personalData.slice();
+
     switch (sortOption) {
       case "latest":
         sortedData.sort(
@@ -68,7 +85,8 @@ const PersonalListPage = () => {
         break;
       case "good":
         sortedData.sort((a, b) => {
-          const conditionComparison = Number(b.condition) - Number(a.condition);
+          const conditionComparison =
+            handleCondition(b.condition) - handleCondition(a.condition);
           if (conditionComparison !== 0) {
             return conditionComparison;
           }
@@ -80,7 +98,8 @@ const PersonalListPage = () => {
         break;
       case "bad":
         sortedData.sort((a, b) => {
-          const conditionComparison = Number(a.condition) - Number(b.condition);
+          const conditionComparison =
+            handleCondition(a.condition) - handleCondition(b.condition);
           if (conditionComparison !== 0) {
             return conditionComparison;
           }
