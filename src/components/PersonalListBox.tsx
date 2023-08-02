@@ -26,7 +26,7 @@ const PersonalListBox = ({ uuid, createDate, condition }: Prop) => {
     <Link to={`/personal/${uuid}`}>
       <div className="flex items-center justify-around px-8 py-5 mt-4 border-2 shadow-md rounded-2xl">
         <h1 className="text-2xl font-bold text-[#2D62EA]">{newDate}</h1>
-        {condition === "5" && (
+        {condition === "best" && (
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="36"
@@ -76,7 +76,7 @@ const PersonalListBox = ({ uuid, createDate, condition }: Prop) => {
             </defs>
           </svg>
         )}
-        {condition === "4" && (
+        {condition === "good" && (
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="36"
@@ -126,7 +126,7 @@ const PersonalListBox = ({ uuid, createDate, condition }: Prop) => {
             </defs>
           </svg>
         )}
-        {condition === "3" && (
+        {condition === "normal" && (
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="36"
@@ -176,7 +176,7 @@ const PersonalListBox = ({ uuid, createDate, condition }: Prop) => {
             </defs>
           </svg>
         )}
-        {condition === "2" && (
+        {condition === "bad" && (
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="36"
@@ -189,8 +189,8 @@ const PersonalListBox = ({ uuid, createDate, condition }: Prop) => {
                 d="M35.7048 18C35.7048 27.7781 27.7781 35.7048 18 35.7048C8.2219 35.7048 0.295181 27.7781 0.295181 18C0.295181 8.2219 8.2219 0.295181 18 0.295181C27.7781 0.295181 35.7048 8.2219 35.7048 18Z"
                 fill="#BFD1FF"
                 stroke="#2D62EA"
-                stroke-width="0.590361"
-                stroke-miterlimit="10"
+                strokeWidth="0.590361"
+                strokeMiterlimit="10"
               />
               <path
                 d="M10.3805 18.6C11.706 18.6 12.7805 17.2569 12.7805 15.6C12.7805 13.9432 11.706 12.6 10.3805 12.6C9.05498 12.6 7.98047 13.9432 7.98047 15.6C7.98047 17.2569 9.05498 18.6 10.3805 18.6Z"
@@ -226,7 +226,7 @@ const PersonalListBox = ({ uuid, createDate, condition }: Prop) => {
             </defs>
           </svg>
         )}
-        {condition === "1" && (
+        {condition === "worst" && (
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="36"
