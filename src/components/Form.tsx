@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Input from "./Input";
 import { useNavigate } from "react-router-dom";
 import useLogin from "../api/auth/useLogin";
@@ -7,6 +7,7 @@ const Form: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoginButtonActive, setIsLoginButtonActive] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
   const { handleLogin, isLoggedIn, isUncorrect } = useLogin();
@@ -33,7 +34,7 @@ const Form: React.FC = () => {
 
   useEffect(() => {
     if (isUncorrect) {
-      alert("x");
+      setErrorMessage("아이디 혹은 비밀번호가 일치하지 않습니다");
     }
   }, [isUncorrect]);
 
@@ -47,10 +48,22 @@ const Form: React.FC = () => {
 
   return (
     <form onSubmit={handleFormSubmit}>
-      <Input type="text" value={username} onChange={handleUsernameChange} />
-      <Input type="password" value={password} onChange={handlePasswordChange} />
+      <Input
+        type="text"
+        value={username}
+        onChange={handleUsernameChange}
+      />
+      <Input
+        type="password"
+        value={password}
+        onChange={handlePasswordChange}
+      />
       {/* 추후 눈모양 아이콘으로 수정? + CSS로 토글 위치 수정  */}
-      <Input type="submit" isLoginButtonActive={isLoginButtonActive} />
+      <p className="text-red-500 text-xs">{errorMessage}</p>
+      <Input
+        type="submit"
+        isLoginButtonActive={isLoginButtonActive}
+      />
     </form>
   );
 };
