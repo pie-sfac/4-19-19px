@@ -6,6 +6,7 @@ import { useSelectedDate } from "../libs/useSelectedDate";
 import { useUserReservationData } from "../libs/useUserReservationData";
 import Layout from "../components/Layout";
 import useLessonReservationList from "../api/reservation/useLessonReservationList";
+import useReservedLessonList from "../api/reservation/useReservedLessonList";
 
 const exLessonData = {
   schedules: [
@@ -83,6 +84,7 @@ const ReservationPage = () => {
     setActiveTab(tab);
   };
   const { data } = useLessonReservationList();
+  const { data: reservedLessonData } = useReservedLessonList();
 
   return (
     <Layout type="reservation">
