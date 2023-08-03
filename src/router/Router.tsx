@@ -5,6 +5,8 @@ import PersonalListPage from "../pages/PersonalListPage";
 import PersonalDetailPage from "../pages/PersonalDetailPage";
 import ReservationPage from "../pages/ReservationPage";
 import VideoPage from "../pages/VideoPage";
+import MyPage from "../pages/MyPage";
+import MemberInfoUpdatePage from "../pages/MemberInfoUpdatePage";
 import PrivateRoutes from "../components/PrivateRoutes";
 
 const AppRouter = () => {
@@ -17,6 +19,8 @@ const AppRouter = () => {
             <Route path="/alarm" element={<NotificationPage />} />
             <Route path="/personal" element={<PersonalListPage />} />
             <Route path="/personal/video/:id" element={<VideoPage />} />
+            <Route path="/mypage" element={<MyPage />} />
+            <Route path="/myupdate" element={<MemberInfoUpdatePage />} />
             <Route
               path="/personal/:uuid"
               element={<PersonalDetailPage type="detail" />}
