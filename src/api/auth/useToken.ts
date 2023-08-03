@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import useTokenSave from "../../libs/useTokenSave";
+import useTokenControl from "../../libs/useTokenControl";
 
 interface useTokenType {
   getNewAccessToken: (token: string) => Promise<void>;
@@ -9,7 +9,7 @@ interface useTokenType {
 const useToken = (): useTokenType => {
   const [isLoadig, setIsLoading] = useState(true);
   const [accessToken, setAccessToken] = useState();
-  const { handleAccessToken } = useTokenSave();
+  const { handleAccessToken } = useTokenControl();
 
   const getNewAccessToken = async (token: string) => {
     const response = await fetch("http://223.130.161.221/mapi/v1/tokens", {

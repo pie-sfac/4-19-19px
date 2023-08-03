@@ -1,6 +1,6 @@
 import base64 from "base-64";
 
-const useTokenSave = () => {
+const useTokenControl = () => {
   const ACCESS_TOKEN = "accessToken";
   const REFRESH_TOKEN = "refreshToken";
 
@@ -20,7 +20,12 @@ const useTokenSave = () => {
     localStorage.setItem(REFRESH_TOKEN, JSON.stringify({ token }));
   };
 
-  return { handleAccessToken, handleRefreshToken };
+  const handleTokenDelete = () => {
+    localStorage.removeItem(ACCESS_TOKEN);
+    localStorage.removeItem(REFRESH_TOKEN);
+  };
+
+  return { handleAccessToken, handleRefreshToken, handleTokenDelete };
 };
 
-export default useTokenSave;
+export default useTokenControl;

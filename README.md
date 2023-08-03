@@ -1,14 +1,12 @@
+## Team 19px
+
+** Hello World! We are 19px **
+
+## Poin T 센터회원용 웹앱 서비스 제작
+
 ## How to run
 
 ```bash
 npm i
 npm run dev
 ```
-
-## From empty folder
-
-```bash
-npm create vite [app_name] --template react-ts
-```
-
-vite-create 로 생성한 템플릿과 똑같습니다.
