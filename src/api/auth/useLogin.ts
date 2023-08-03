@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import useTokenSave from "../../libs/useTokenSave";
+import useTokenControl from "../../libs/useTokenControl";
 
 interface useLoginType {
   handleLogin: (username: string, password: string) => Promise<void>;
@@ -12,7 +12,7 @@ const useLogin = (): useLoginType => {
   const [refreshToken, setRefreshToken] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isUncorrect, setIsUncorrect] = useState(false);
-  const { handleAccessToken, handleRefreshToken } = useTokenSave();
+  const { handleAccessToken, handleRefreshToken } = useTokenControl();
 
   const handleLogin = async (username: string, password: string) => {
     const token = `${username}:${password}`;
