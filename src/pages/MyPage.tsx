@@ -1,29 +1,3 @@
-<<<<<<< HEAD
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import Layout from "../components/Layout";
-import useLogout from "../api/auth/useLogout";
-
-const MyPage = () => {
-  const { handleLogout, isLoggedOut } = useLogout();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (isLoggedOut) {
-      navigate("/login");
-    }
-  }, [isLoggedOut]);
-
-  return (
-    <Layout type="myPage">
-      <button
-        className="p-4"
-        onClick={handleLogout}
-      >
-        로그아웃
-      </button>
-    </Layout>
-=======
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ProfileImage from "../components/MyPage/ProfileImage/ProfileImage";
@@ -139,7 +113,6 @@ const MyPage = () => {
         </div>
       )} */}
     </div>
->>>>>>> 7ee7d52e6605bd4af222b7d7c419f3a62c354233
   );
 };
 
