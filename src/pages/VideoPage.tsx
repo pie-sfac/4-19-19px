@@ -1,19 +1,17 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import video from "../assets/video.mp4";
+import { useLocation } from "react-router-dom";
+import Layout from "../components/Layout";
 
 const VideoPage = () => {
   const location = useLocation();
-  const navigate = useNavigate();
-
+  console.log(location);
   return (
-    <div className="w-screen h-screen fixed top-0 left-0 flex flex-col justify-center items-center">
-      <div className="text-white" onClick={() => navigate(-1)}>
-        X
+    <Layout type="video" isNavigationDisplay={false}>
+      <div className="bg-black px-4  py-8">
+        <video controls>
+          <source src={location.state} />
+        </video>
       </div>
-      <video controls>
-        <source src={video} />
-      </video>
-    </div>
+    </Layout>
   );
 };
 

@@ -1,23 +1,26 @@
-import useSWR from "swr";
-import useTokenCheck from "../../libs/useTokenCheck";
 import { useEffect, useState } from "react";
+import useTokenCheck from "../../libs/useTokenCheck";
+import useSWR from "swr";
 
-interface Schedule {
-  lessonTitle: string;
-  lessonScheduleID: number;
-  lessonType: string;
-  lessonDuration: number;
+interface Lesson {
+  id: number;
+  type: string;
+  title: string;
+  duration: number;
   maxGroupMember: number;
-  reservationStartAt: string;
-  reservationEndAt: string;
-  tutorName: string;
+}
+interface Reservations {
+  id: number;
+  startAt: string;
+  endAt: string;
+  lesson: Lesson;
 }
 
-interface GroupLessonReservation {
-  schedules: Schedule[];
+interface ReservedLesson {
+  reservations: Reservations[];
 }
 
-const useLessonReservationList = () => {
+const useReservedLessonList = async () => {
   const ACCESS_TOKEN = "accessToken";
   const localAccessToken = localStorage.getItem(ACCESS_TOKEN);
   const parseAccesstoken = localAccessToken
@@ -25,10 +28,8 @@ const useLessonReservationList = () => {
     : null;
 
   const [token, setToken] = useState(parseAccesstoken);
-  // 만료된 토큰인지 확인합니다.
   const { isCheckLoading } = useTokenCheck();
 
-  // 토큰 체크가 끝나면 토큰을 setState에 저장합니다.
   useEffect(() => {
     setToken(JSON.parse(localAccessToken!).token);
   }, [isCheckLoading]);
@@ -43,14 +44,13 @@ const useLessonReservationList = () => {
     }).then((res) => res.json());
   };
 
-  const { data, error, isLoading } = useSWR<GroupLessonReservation>(
+  const { data, error, isLoading } = useSWR<ReservedLesson>(
     !isCheckLoading &&
       token &&
-      "http://223.130.161.221/mapi/v1/schedules/group-lesson",
+      "http://223.130.161.221/mapi/v1/lesson-reservations",
     fetcher
   );
-  console.log("LIST", data);
+
   return { data, error, isLoading };
 };
-
-export default useLessonReservationList;
+export default useReservedLessonList;
