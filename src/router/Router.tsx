@@ -6,6 +6,7 @@ import PersonalDetailPage from "../pages/PersonalDetailPage";
 import ReservationPage from "../pages/ReservationPage";
 import VideoPage from "../pages/VideoPage";
 import PrivateRoutes from "../components/PrivateRoutes";
+import MyPage from "../pages/MyPage";
 
 const AppRouter = () => {
   return (
@@ -13,18 +14,43 @@ const AppRouter = () => {
       <BrowserRouter>
         <Routes>
           <Route element={<PrivateRoutes />}>
-            <Route path="/" element={<PersonalDetailPage type="home" />} />
-            <Route path="/alarm" element={<NotificationPage />} />
-            <Route path="/personal" element={<PersonalListPage />} />
-            <Route path="/personal/video/:id" element={<VideoPage />} />
+            <Route
+              path="/"
+              element={<PersonalDetailPage type="home" />}
+            />
+            <Route
+              path="/alarm"
+              element={<NotificationPage />}
+            />
+            <Route
+              path="/personal"
+              element={<PersonalListPage />}
+            />
+            <Route
+              path="/personal/video/:id"
+              element={<VideoPage />}
+            />
             <Route
               path="/personal/:uuid"
               element={<PersonalDetailPage type="detail" />}
             />
-            <Route path="/reservation" element={<ReservationPage />} />
-            <Route path="/reservation-reserved" element={<ReservationPage />} />
+            <Route
+              path="/reservation"
+              element={<ReservationPage />}
+            />
+            <Route
+              path="/reservation-reserved"
+              element={<ReservationPage />}
+            />
+            <Route
+              path="/mypage"
+              element={<MyPage />}
+            />
           </Route>
-          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/login"
+            element={<LoginPage />}
+          />
         </Routes>
       </BrowserRouter>
     </>
