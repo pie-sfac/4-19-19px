@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import ProfileImage from "../components/MyPage/ProfileImage/ProfileImage";
+import Layout from "../components/Layout";
+import useLogout from "../api/auth/useLogout";
 
 const personalInfo = {
   member: {
@@ -16,6 +18,14 @@ const personalInfo = {
 };
 
 const MyPage = () => {
+  const { handleLogout, isLoggedOut } = useLogout();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoggedOut) {
+      navigate("/login");
+    }
+  }, [isLoggedOut]);
   //모달 회원정보
   // const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -45,59 +55,58 @@ const MyPage = () => {
   // };
 
   return (
-    //PUSH 전에 높이 900px 지우기 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    <div className="px-4 py-6">
-      <header className="flex justify-between items-start">
-        <div>
-          <ProfileImage />
-        </div>
-        <div className="flex items-end gap-17">
-          <div className="text-xl font-bold">
-            {personalInfo.member.name} 회원님
-            {/* <div className="text-l font-bold gap-18">
+    <Layout type="myPage">
+      <div className="px-4 py-6">
+        <header className="flex justify-between items-start">
+          <div>
+            <ProfileImage />
+          </div>
+          <div className="flex items-end gap-17">
+            <div className="text-xl font-bold">
+              {personalInfo.member.name} 회원님
+              {/* <div className="text-l font-bold gap-18">
               {formatDateTime(currentDateTime)}
             </div> */}
+            </div>
           </div>
-        </div>
-      </header>
-      <div className="flex flex-col relative">
-        <Link
-          to="/myupdate"
-          // onClick={handleOpenModal}
-          className="text-xs text-[#64657c] mt-auto mb-2"
-        >
-          회원정보
-        </Link>
-        <Link
-          to="#"
-          //onClick={handleOpenModal}
-          className="text-xs text-[#64657c] mt-auto mb-2  "
-        >
-          로그아웃
-        </Link>
-        <Link
-          to="#"
-          //onClick={handleOpenModal}
-          className="text-xs text-[#64657c] mt-auto mb-2 "
-        >
-          회원탈퇴
-        </Link>
-        <div className="mt-12 px-4 py-5 text-sm bg-[#F4F4F4] justify-between items-start  fixed bottom-0">
-          <div>포인티 센터</div>
+        </header>
+        <div className="flex flex-col relative">
+          <Link
+            to="/myupdate"
+            // onClick={handleOpenModal}
+            className="text-xs text-[#64657c] mt-auto mb-2"
+          >
+            회원정보
+          </Link>
+          <button
+            className="text-xs text-[#64657c] mt-auto mb-2"
+            onClick={handleLogout}
+          >
+            로그아웃
+          </button>
+          <Link
+            to="#"
+            //onClick={handleOpenModal}
+            className="text-xs text-[#64657c] mt-auto mb-2 "
+          >
+            회원탈퇴
+          </Link>
+          <div className="mt-12 px-4 py-5 text-sm bg-[#F4F4F4] justify-between items-start  fixed bottom-0">
+            <div>포인티 센터</div>
 
-          <div className="ml-7 text-[#505050]">
-            <div>서울시 남부 순환로 1801, 라피스 빌딩 8층</div>
-            <div>02-840-9002</div>
+            <div className="ml-7 text-[#505050]">
+              <div>서울시 남부 순환로 1801, 라피스 빌딩 8층</div>
+              <div>02-840-9002</div>
+            </div>
           </div>
-        </div>
-        {/* <div className="mt-4">
+          {/* <div className="mt-4">
           <div className="grid grid-cols-7 gap-4 mt-2"></div>
         </div>
         <div className="mt-8">
           <h2 className="text-xl font-bold"></h2>
         </div> */}
-      </div>
-      {/* {selectedDate && (
+        </div>
+        {/* {selectedDate && (
         <div className="fixed top-1 left-0 w-full h-full bg-gray-500 bg-opacity-50 flex justify-center items-center">
           <div className="bg-white p-4 rounded shadow-lg">
             <h3 className="text-lg font-bold mb-2">Todo for {selectedDate}</h3>
@@ -112,7 +121,8 @@ const MyPage = () => {
           </div>
         </div>
       )} */}
-    </div>
+      </div>
+    </Layout>
   );
 };
 
