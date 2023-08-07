@@ -17,7 +17,7 @@ const Layout = ({ children, type, isNavigationDisplay = true }: LayoutProp) => {
       ].join(" ")}
     >
       <Header type={type} />
-      <div className="pb-10 ">{children}</div>
+      <div className="pb-14 ">{children}</div>
       <NavigationBar isNavigationDisplay={isNavigationDisplay} />
     </div>
   );
