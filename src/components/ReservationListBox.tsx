@@ -46,26 +46,26 @@ const ReservationPopup = ({
     <Modal
       isOpen={isOpen}
       onRequestClose={onClose}
-      style={{
-        overlay: { background: "rgba(0, 0, 0, 0.80)" },
-        content: {
-          position: "fixed",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          border: "1px solid #ccc",
-          background: "#fff",
-          WebkitOverflowScrolling: "touch",
-          borderRadius: "10px",
-          outline: "none",
-          padding: "30px",
-          width: "320px",
-          height: "140px",
-          overflow: "hidden",
-        },
-      }}
+      shouldCloseOnOverlayClick={true}
+      className="flex items-center justify-center h-screen"
+      overlayClassName="fixed inset-0 bg-black bg-opacity-80"
+      closeTimeoutMS={900}
     >
-      <div className="flex flex-col">
+      <div className="flex flex-col w-[320px] bg-white p-5 rounded-lg shadow-md ">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="17"
+          height="17"
+          viewBox="0 0 24 24"
+          fill="none"
+          className="mb-3 ml-auto"
+          onClick={onClose}
+        >
+          <path
+            d="M5.70711 4.29289C5.31658 3.90237 4.68342 3.90237 4.29289 4.29289C3.90237 4.68342 3.90237 5.31658 4.29289 5.70711L10.5858 12L4.29289 18.2929C3.90237 18.6834 3.90237 19.3166 4.29289 19.7071C4.68342 20.0976 5.31658 20.0976 5.70711 19.7071L12 13.4142L18.2929 19.7071C18.6834 20.0976 19.3166 20.0976 19.7071 19.7071C20.0976 19.3166 20.0976 18.6834 19.7071 18.2929L13.4142 12L19.7071 5.70711C20.0976 5.31658 20.0976 4.68342 19.7071 4.29289C19.3166 3.90237 18.6834 3.90237 18.2929 4.29289L12 10.5858L5.70711 4.29289Z"
+            fill="black"
+          />
+        </svg>
         <div className="flex items-center justify-around">
           <div>
             <p className="text-xs text-[#2D62EA] font-bold">

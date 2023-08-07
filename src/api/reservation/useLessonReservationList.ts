@@ -27,7 +27,6 @@ const useLessonReservationList = () => {
         auth: `Bearer ${accessToken.token}`,
       }
   );
-
   return { data, error, isLoading };
 };
 
