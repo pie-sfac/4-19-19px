@@ -5,18 +5,25 @@ import useToken from "../api/auth/useToken";
 const useTokenCheck = () => {
   const { getNewAccessToken, isLoadig } = useToken();
   const [isCheckLoading, setIsCheckLoading] = useState(true);
+  const [accessToken, setAccessToken] = useState<
+    { token: string; exp: number } | undefined
+  >();
 
   const ACCESS_TOKEN = "accessToken";
   const REFRESH_TOKEN = "refreshToken";
-  const localAccessToken = localStorage.getItem(ACCESS_TOKEN);
-  const parsedAccessToken = localAccessToken && JSON.parse(localAccessToken);
-  const currentTime = Date.now();
 
   useEffect(() => {
-    if (!parsedAccessToken) {
+    const localAccessToken = localStorage.getItem(ACCESS_TOKEN);
+    const parsedAccessToken = localAccessToken && JSON.parse(localAccessToken);
+    setAccessToken(parsedAccessToken);
+  }, []);
+
+  useEffect(() => {
+    if (!accessToken) {
       return;
     }
-    const tokenExp = parsedAccessToken.exp;
+    const tokenExp = accessToken.exp;
+    const currentTime = Date.now();
     if (tokenExp * 1000 < currentTime) {
       const localRefreshToken = localStorage.getItem(REFRESH_TOKEN);
       const parsedRefreshToken =
@@ -25,7 +32,7 @@ const useTokenCheck = () => {
     } else {
       setIsCheckLoading(false);
     }
-  }, [parsedAccessToken, currentTime, getNewAccessToken]);
+  }, [accessToken, getNewAccessToken]);
 
   useEffect(() => {
     if (!isLoadig) {
@@ -33,7 +40,7 @@ const useTokenCheck = () => {
     }
   }, [isLoadig]);
 
-  return { isCheckLoading };
+  return { accessToken, isCheckLoading };
 };
 
 export default useTokenCheck;
