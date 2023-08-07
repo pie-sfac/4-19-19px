@@ -7,3 +7,8 @@ export const isCommentState = atom<{
   key: "isCommentState",
   default: { isLoading: true, isOk: null },
 });
+
+export const isIncorrectAtom = atom<boolean>({
+  key: "isIncorrect",
+  default: false,
+});
