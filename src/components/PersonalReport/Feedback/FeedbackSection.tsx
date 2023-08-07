@@ -185,8 +185,8 @@ const FeedbackSection = () => {
     <div className="rounded-lg bg-[#FBFBFB]">
       <p
         className={[
-          "p-4 border border-b-0 rounded-t-lg text-sm font-normal text-[#505050]",
-          extension ? "" : "h-24",
+          " p-4 border border-b-0 rounded-t-lg text-sm font-normal text-[#505050] overflow-hidden transition-all duration-500",
+          extension ? "h-[130px]" : "h-[90px]",
         ].join(" ")}
       >
         {extension

@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import Layout from "../components/Layout";
 import DateSlider from "../components/PersonalReport/DateSlider/DateSlider";
 import DetailSection from "../components/PersonalReport/DetailSection";
 import CommentSection from "../components/PersonalReport/Comment/CommentSection";
 import ShareSection from "../components/PersonalReport/Share/ShareSection";
 import CompanySection from "../components/PersonalReport/Company/CompanySection";
-import Layout from "../components/Layout";
 import usePersonalReportList from "../api/personal/usePersonalReportList";
 import usePersonalReportDetail from "../api/personal/usePersonalReportDetail";
 import adImage from "../assets/ad-image.png";
@@ -188,13 +188,14 @@ const personalReport = {
     ],
   },
 };
+
 export interface PersonalDetailPageProp {
   type: "home" | "detail";
 }
 
 const PersonalDetailPage = ({ type }: PersonalDetailPageProp) => {
-  const [uuid, setUuid] = useState<string | undefined>();
   const params = useParams();
+  const [uuid, setUuid] = useState<string | undefined>();
   const { data: ListData } = usePersonalReportList();
   const { data: DetailData } = usePersonalReportDetail(uuid);
 
@@ -228,32 +229,31 @@ const PersonalDetailPage = ({ type }: PersonalDetailPageProp) => {
 
   return (
     <Layout type="personalDetail">
-      <div>
-        <div
-          className="h-14 bg-gray-100 bg-cover"
-          style={{ backgroundImage: `url(${adImage})` }}
-        ></div>
-        <DateSlider type={type} />
-        {/* 영상 및 이미지 섹션*/}
-        <DetailSection type="media" />
-        {/* 피드백 섹션 */}
-        <DetailSection type="feedback" />
-        {/* 센터 추천 링크 섹션 */}
-        <DetailSection type="recommend" />
-        <div className="h-3 mt-7 bg-gray-100"></div>
-        {/* 통증 섹션 */}
-        <DetailSection type="pain" />
-        {/* 컨디션 섹션 */}
-        <DetailSection type="condition" />
-        <div className="h-3 mt-7 bg-gray-100"></div>
-        {/* 후기 섹션 */}
-        <CommentSection reportId={personalReport.uuid} />
-        <div className="h-3 mt-7 bg-gray-100"></div>
-        {/* 공유 섹션 */}
-        <ShareSection name={personalReport.member.name} />
-        {/* 컴퍼니 섹션 */}
-        <CompanySection />
-      </div>
+      <Link
+        to={"https://www.wadiz.kr/web/maker/detail/1748046"}
+        className="block h-14 bg-gray-100 bg-cover"
+        style={{ backgroundImage: `url(${adImage})` }}
+      ></Link>
+      <DateSlider type={type} />
+      {/* 영상 및 이미지 섹션*/}
+      <DetailSection type="media" />
+      {/* 피드백 섹션 */}
+      <DetailSection type="feedback" />
+      {/* 센터 추천 링크 섹션 */}
+      <DetailSection type="recommend" />
+      <div className="h-3 mt-7 bg-gray-100"></div>
+      {/* 통증 섹션 */}
+      <DetailSection type="pain" />
+      {/* 컨디션 섹션 */}
+      <DetailSection type="condition" />
+      <div className="h-3 mt-7 bg-gray-100"></div>
+      {/* 후기 섹션 */}
+      <CommentSection reportId={personalReport.uuid} />
+      <div className="h-3 mt-7 bg-gray-100"></div>
+      {/* 공유 섹션 */}
+      <ShareSection name={personalReport.member.name} />
+      {/* 컴퍼니 섹션 */}
+      <CompanySection />
     </Layout>
   );
 };

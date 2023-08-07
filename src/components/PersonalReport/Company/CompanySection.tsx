@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const CompanySection = () => {
   return (
-    <section className="mt-12 px-4 pt-5 pb-12 text-sm bg-[#F4F4F4]">
+    <section className="mx-4 mt-12 mb-6 px-5 py-5 text-sm bg-[#F4F4F4]">
       <div className="flex items-center gap-1">
         <div>
           <svg
@@ -37,9 +37,12 @@ const CompanySection = () => {
       <div className="ml-7 text-[#505050]">
         <div>서울시 남부순환로 1801, 라피스 빌딩 8층</div>
         <div>02-840-9002</div>
-        <div className="font-bold">
+        <div className="font-extrabold">
           카카오톡 문의:
-          <Link to={"#"} className="underline">
+          <Link
+            to={"https://www.point.piehealthcare.kr/"}
+            className="underline"
+          >
             포인티 센터 바로가기
           </Link>
         </div>
