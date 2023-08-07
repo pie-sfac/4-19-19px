@@ -104,7 +104,6 @@ const ShareSection = ({ name }: PropType) => {
   useEffect(() => {
     Kakao.cleanup();
     Kakao.init(import.meta.env.VITE_SOME_KEY_KAKAO_API_KEY);
-    console.log(Kakao.isInitialized());
   }, []);
 
   return (
