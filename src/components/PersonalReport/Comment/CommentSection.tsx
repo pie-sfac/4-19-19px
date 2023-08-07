@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
+import { useRecoilState } from "recoil";
+import { isCommentState } from "../../../atom";
 import useComment from "../../../api/personal/useComment";
 
 interface CommentSectionProp {
@@ -21,26 +23,29 @@ const ReservationPopup = ({
   starPoint,
   review,
 }: ReservationPopupProp) => {
-  const { isSuccess, setIsSuccess } = useState(false);
-  const { handleComment, isOk, isLoading } = useComment();
+  const [isSuccess, setIsSuccess] = useState(false);
+  const { handleComment } = useComment();
+  const [isComment, setIsComment] = useRecoilState(isCommentState);
+
   const handleClose = () => {
     if (isOpen) {
       onClose();
+      setIsComment({ isLoading: true, isOk: null });
     }
   };
   const onhandleComment = () => {
     handleComment({ uuid: reportId, rating: starPoint, content: review });
   };
   useEffect(() => {
-    if (isLoading) {
+    if (isComment.isLoading) {
       return;
     }
-    if (isLoading && isOk) {
+    if (isComment.isLoading && isComment.isOk) {
       setIsSuccess(true);
-    } else if (isLoading && !isOk) {
+    } else if (isComment.isLoading && !isComment.isOk) {
       setIsSuccess(false);
     }
-  }, [isLoading]);
+  }, [isComment.isLoading]);
   return (
     <Modal
       isOpen={isOpen}
@@ -83,10 +88,14 @@ const ReservationPopup = ({
         </div>
         <div className="flex flex-col justify-center items-center gap-2">
           <div className="text-base font-bold">
-            {isLoading ? "만족도 및 후기 발송" : isSuccess ? "성공" : "실패"}
+            {isComment.isLoading
+              ? "만족도 및 후기 발송"
+              : isSuccess
+              ? "성공"
+              : "실패"}
           </div>
           <div className="text-sm font-light text-[#1D1D1D] text-center">
-            {isLoading ? (
+            {isComment.isLoading ? (
               <span>
                 작성하신 만족도 및 후기를 <br />
                 발송하시겠습니까?
@@ -102,7 +111,7 @@ const ReservationPopup = ({
           </div>
         </div>
         <div className="mt-7 flex justify-center gap-2">
-          {isLoading ? (
+          {isComment.isLoading ? (
             <>
               <button
                 className="px-2 py-3 rounded-md bg-gray-100"

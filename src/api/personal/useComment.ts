@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { useSetRecoilState } from "recoil";
+import { isCommentState } from "../../atom";
 
 interface handleCommentProp {
   uuid: string;
@@ -7,9 +9,9 @@ interface handleCommentProp {
 }
 
 const useComment = () => {
-  const [message, setMessage] = useState();
-  const [isOk, setIsOk] = useState<boolean | undefined>();
-  const [isLoading, setIsLoading] = useState(true);
+  const [message, setMessage] = useState("");
+  const setIsComment = useSetRecoilState(isCommentState);
+
   const handleComment = async ({
     uuid,
     rating,
@@ -34,18 +36,16 @@ const useComment = () => {
 
   useEffect(() => {
     if (message === "정상적으로 리뷰를 등록했습니다.") {
-      setIsOk(true);
-      setIsLoading(false);
+      setIsComment({ isLoading: false, isOk: true });
     } else if (message === "존재하지 않는 퍼스널레포트입니다.") {
-      setIsOk(false);
-      setIsLoading(false);
+      setIsComment({ isLoading: false, isOk: false });
     } else if (message === "이미 작성된 후기가 존재합니다.") {
-      setIsOk(false);
-      setIsLoading(false);
+      setIsComment({ isLoading: false, isOk: false });
     }
+    setMessage("");
   }, [message]);
 
-  return { handleComment, isOk, isLoading };
+  return { handleComment };
 };
 
 export default useComment;
