@@ -49,7 +49,6 @@ const useLessonReservationList = () => {
       "http://223.130.161.221/mapi/v1/schedules/group-lesson",
     fetcher
   );
-  console.log("LIST", data);
   return { data, error, isLoading };
 };
 
