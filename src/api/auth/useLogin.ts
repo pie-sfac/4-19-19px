@@ -1,20 +1,27 @@
 import { useState, useEffect } from "react";
 import useTokenControl from "../../libs/useTokenControl";
+import { isIncorrectAtom } from "../../atom";
+import { useSetRecoilState } from "recoil";
 
 interface useLoginType {
   handleLogin: (username: string, password: string) => Promise<void>;
   isLoggedIn: boolean;
-  isUncorrect: boolean;
 }
 
 const useLogin = (): useLoginType => {
   const [accessToken, setAccessToken] = useState();
   const [refreshToken, setRefreshToken] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isUncorrect, setIsUncorrect] = useState(false);
+  const setIsIncorrect = useSetRecoilState(isIncorrectAtom);
   const { handleAccessToken, handleRefreshToken } = useTokenControl();
 
   const handleLogin = async (username: string, password: string) => {
+    const korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+    if (korean.test(username) || korean.test(password)) {
+      setIsIncorrect(true);
+      return;
+    }
+
     const token = `${username}:${password}`;
     const baseEncode = btoa(token);
     const url = "http://223.130.161.221/mapi/v1/login?centerCode=2399656";
@@ -32,7 +39,7 @@ const useLogin = (): useLoginType => {
         setAccessToken(json.accessToken);
         setRefreshToken(json.refreshToken);
       } else {
-        setIsUncorrect(true);
+        setIsIncorrect(true);
       }
     } catch (error) {
       console.log(error);
@@ -51,6 +58,6 @@ const useLogin = (): useLoginType => {
     }
   }, [refreshToken]);
 
-  return { handleLogin, isLoggedIn, isUncorrect };
+  return { handleLogin, isLoggedIn };
 };
 export default useLogin;
