@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { PersonalDetailPageProp } from "../../../pages/PersonalDetailPage";
 import DateListBox from "./DateListBox";
+import usePersonalReportList from "../../../api/personal/usePersonalReportList";
 
-const personalReports = {
+const listData = {
   meta: {
     totalCount: 0,
     size: 0,
@@ -13,39 +14,39 @@ const personalReports = {
   },
   datas: [
     {
-      id: 6,
-      uuid: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      createDate: "2023-07-26T06:36:46.798Z",
-    },
-    {
       id: 0,
-      uuid: "3fa85f64-5717-4562-b3fc-2c963f66afa7",
-      createDate: "2023-07-24T06:36:46.798Z",
+      uuid: "3fa85f64-5717-4562-b3fc-2c963f66afa1",
+      createDate: "2023-07-27T07:29:45.701Z",
+      condition: "best",
     },
     {
       id: 1,
-      uuid: "3fa85f64-5717-4562-b3fc-2c963f66afa8",
-      createDate: "2023-07-23T06:36:46.798Z",
+      uuid: "3fa85f64-5717-4562-b3fc-2c963f66afa2",
+      createDate: "2023-07-28T07:29:45.701Z",
+      condition: "good",
     },
     {
       id: 2,
-      uuid: "3fa85f64-5717-4562-b3fc-2c963f66afa9",
-      createDate: "2023-07-20T06:36:46.798Z",
+      uuid: "3fa85f64-5717-4562-b3fc-2c963f66afa3",
+      createDate: "2023-07-31T07:29:45.701Z",
+      condition: "normal",
     },
     {
       id: 3,
-      uuid: "3fa85f64-5717-4562-b3fc-2c963f66afa0",
-      createDate: "2023-07-18T06:36:46.798Z",
+      uuid: "3fa85f64-5717-4562-b3fc-2c963f66afa4",
+      createDate: "2023-08-02T07:29:45.701Z",
+      condition: "bad",
     },
     {
       id: 4,
-      uuid: "3fa85f64-5717-4562-b3fc-2c963f66afa1",
-      createDate: "2023-07-11T06:36:46.798Z",
+      uuid: "3fa85f64-5717-4562-b3fc-2c963f66afa5",
+      createDate: "2023-08-05T07:29:45.701Z",
+      condition: "worst",
     },
     {
       id: 5,
-      uuid: "3fa85f64-5717-4562-b3fc-2c963f66afa2",
-      createDate: "2023-07-10T06:36:46.798Z",
+      uuid: "1dc354cd-228e-4219-bb0a-2fd9be78c064",
+      createDate: "2023-08-06T06:36:46.798Z",
     },
   ],
   message: "string",
@@ -65,95 +66,138 @@ interface PersonalDateInfo {
 const DateSlider = ({ type }: PersonalDetailPageProp) => {
   const scrollBox = useRef<HTMLElement | null>(null);
   const params = useParams();
-  //페이지에 표시되는 퍼스널 레포트 데이터의 날짜입니다.
-  const createDate = new Date(
-    type === "home"
-      ? personalReports.datas[0].createDate
-      : personalReports.datas.filter((data) => data.uuid === params.uuid)[0]
-          .createDate
-  );
-  const dataDate = createDate.getDate();
+  const [createDate, setCreateDate] = useState<Date | undefined>();
   const [dates, setDates] = useState<DateInfo[]>([]);
-  const [personalDates, setPersonalDates] = useState<
-    PersonalDateInfo[] | undefined
-  >();
+  const [personalDates, setPersonalDates] = useState<PersonalDateInfo[]>([]);
+  // const { data: listData } = usePersonalReportList();
 
+  // getDate 함수는 createDate로부터 앞뒤로 1주일간의 날짜를 만들어 personalDates와 비교하여 데이터의 존재여부, 데이터의 id, 데이터의 날짜로 이루어진 배열을 만듭니다.
   const getDate = () => {
-    let dateInfoArray: DateInfo[] = [];
+    let dateArray: DateInfo[] = [];
     const isLeapYear =
-      (createDate.getFullYear() % 4 === 0 &&
-        createDate.getFullYear() % 100 !== 0) ||
-      createDate.getFullYear() % 400 == 0;
-    for (let i = dataDate - 6; i <= dataDate + 7; i++) {
+      (createDate!.getFullYear() % 4 === 0 &&
+        createDate!.getFullYear() % 100 !== 0) ||
+      createDate!.getFullYear() % 400 == 0;
+    for (
+      let i = createDate!.getDate() - 6;
+      i <= createDate!.getDate() + 6;
+      i++
+    ) {
       let dateConfig: DateInfo = { date: 0, isData: false };
       personalDates!.forEach((date) => {
         let dateInfo = i;
-        if (i > 28 && createDate.getMonth() === 1) {
+        if (i < 1 && createDate!.getMonth() - 1 === 1) {
+          if (!isLeapYear) {
+            dateInfo += 28;
+          } else {
+            dateInfo += 29;
+          }
+        } else if (
+          i < 1 &&
+          [3, 5, 8, 10].includes(createDate!.getMonth() - 1)
+        ) {
+          dateInfo += 30;
+        } else if (
+          i < 1 &&
+          [0, 2, 4, 6, 7, 8, 11].includes(createDate!.getMonth() - 1)
+        ) {
+          dateInfo += 31;
+        } else if (i > 28 && createDate!.getMonth() === 1) {
           if (!isLeapYear) {
             dateInfo -= 28;
           } else if (isLeapYear && dateInfo > 29) {
             dateInfo -= 29;
           }
-        } else if (i > 30 && [3, 5, 8, 10].includes(createDate.getMonth())) {
+        } else if (i > 30 && [3, 5, 8, 10].includes(createDate!.getMonth())) {
           dateInfo -= 30;
         } else if (
           i > 31 &&
-          [0, 2, 4, 6, 7, 8, 11].includes(createDate.getMonth())
+          [0, 2, 4, 6, 7, 8, 11].includes(createDate!.getMonth())
         ) {
           dateInfo -= 31;
         }
-        if (i === date.date) {
-          dateConfig.date = dateInfo;
+        if (dateInfo === date.date) {
           dateConfig.isData = true;
           dateConfig.id = date.id;
-        } else {
-          dateConfig.date = dateInfo;
         }
+        dateConfig.date = dateInfo;
       });
-      dateInfoArray.push({ ...dateConfig });
+      dateArray.push({ ...dateConfig });
     }
-    setDates(dateInfoArray);
+    setDates(dateArray);
   };
 
+  // getPersonalDate함수는 listData에 존재하는 데이터들의 날짜와 uuid를 모아 배열을 만듭니다.
   const getPersonalDate = () => {
-    const personalInfoArray = personalReports.datas.map((data) => {
+    const personalDatesArray = listData!.datas.map((data) => {
       const personalDate = new Date(data.createDate).getDate();
       return { date: personalDate, id: data.uuid };
     });
-    setPersonalDates(personalInfoArray);
+    setPersonalDates(personalDatesArray);
   };
 
   useEffect(() => {
     if (scrollBox.current) {
-      scrollBox.current.scrollLeft = (600 - scrollBox.current.offsetWidth) / 2;
+      scrollBox.current.scrollLeft =
+        (scrollBox.current.scrollWidth - scrollBox.current.offsetWidth) / 2;
+      //scrollBox.current.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   }, [dates]);
 
+  // personalDates에 값이 존재하고 createDate를 구하면 getDate 함수를 실행합니다.
   useEffect(() => {
-    if (personalDates) {
+    if (personalDates.length > 0 && createDate) {
       getDate();
     }
-  }, [personalDates, params]);
+  }, [personalDates, createDate]);
 
+  // listData가 불러져 오면 getPersonalDate 함수를 실행합니다,
   useEffect(() => {
-    getPersonalDate();
-  }, []);
+    if (listData) {
+      getPersonalDate();
+    }
+  }, [listData]);
+
+  //페이지에 표시되는 퍼스널 레포트 데이터의 날짜인 createDate를 구합니다.
+  useEffect(() => {
+    if (!listData) {
+      return;
+    }
+    const datas = listData.datas;
+    if (type === "home") {
+      let latestCreateDate = new Date(0);
+      for (let i = 0; i < datas.length; i++) {
+        const createDate = new Date(datas[i].createDate);
+        if (createDate > latestCreateDate) {
+          latestCreateDate = createDate;
+        }
+        setCreateDate(latestCreateDate);
+      }
+    } else if (type === "detail") {
+      setCreateDate(
+        new Date(
+          datas.filter((data) => data.uuid === params.uuid)[0].createDate
+        )
+      );
+    }
+  }, [listData, params]);
 
   return (
     <section
-      className="w-full0 mx-4 mt-3 p-2 border rounded-lg overflow-auto"
+      className="mx-4 mt-3 p-2 border rounded-lg overflow-auto"
       ref={scrollBox}
     >
       <div className="flex justify-between w-[600px] scroll-mt-3">
-        {dates?.map((date: DateInfo) => (
-          <DateListBox
-            key={date.date}
-            id={date.id}
-            isData={date.isData}
-            date={date.date}
-            dataDate={dataDate}
-          />
-        ))}
+        {createDate &&
+          dates?.map((date: DateInfo) => (
+            <DateListBox
+              key={date.date}
+              id={date.id}
+              isData={date.isData}
+              date={date.date}
+              dataDate={createDate.getDate()}
+            />
+          ))}
       </div>
     </section>
   );
