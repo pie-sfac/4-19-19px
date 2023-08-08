@@ -2,11 +2,11 @@ import { ko } from "date-fns/locale";
 import React, { forwardRef, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useSelectedDate } from "../libs/useSelectedDate";
+import { useSelectedDate } from "../../libs/useSelectedDate";
 
-interface SetDateButtonProps {
+interface SetDateButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   buttonLabel: string;
-  onClick: () => void;
 }
 
 const SetDateButton = forwardRef<HTMLButtonElement, SetDateButtonProps>(
@@ -64,7 +64,7 @@ const ReservationDateButton = () => {
     const newActiveMonth = activeMonth - 1;
     if (newActiveMonth < 0) {
       setActiveYear(activeYear - 1);
-      setActiveMonth(11); // 11은 12월을 나타냄
+      setActiveMonth(11);
     } else {
       setActiveMonth(newActiveMonth);
     }
@@ -74,7 +74,7 @@ const ReservationDateButton = () => {
     const newActiveMonth = activeMonth + 1;
     if (newActiveMonth > 11) {
       setActiveYear(activeYear + 1);
-      setActiveMonth(0); // 0은 1월을 나타냄
+      setActiveMonth(0);
     } else {
       setActiveMonth(newActiveMonth);
     }
