@@ -9,6 +9,7 @@ import CompanySection from "../components/PersonalReport/Company/CompanySection"
 import usePersonalReportList from "../api/personal/usePersonalReportList";
 import usePersonalReportDetail from "../api/personal/usePersonalReportDetail";
 import adImage from "../assets/ad-image.png";
+import LoadingPage from "./LoadingPage";
 
 const personalReport = {
   uuid: "1dc354cd-228e-4219-bb0a-2fd9be78c064",
@@ -196,15 +197,16 @@ export interface PersonalDetailPageProp {
 const PersonalDetailPage = ({ type }: PersonalDetailPageProp) => {
   const params = useParams();
   const [uuid, setUuid] = useState<string | undefined>();
-  const { data: ListData } = usePersonalReportList();
-  const { data: DetailData } = usePersonalReportDetail(uuid);
+  const { data: listData } = usePersonalReportList();
+  const { data: detailData } = usePersonalReportDetail(uuid);
 
+  // type이 "home"일경우 전체 레포트에서 가장 최신의 레포트 uuid를 선택합니다.
   useEffect(() => {
-    if (!ListData || ListData.datas.length === 0) {
+    if (!listData || listData.datas.length === 0) {
       return;
     }
     if (type === "home") {
-      const datas = ListData.datas;
+      const datas = listData.datas;
       let latestUuid;
       let latestCreateDate = new Date(0);
       datas.forEach((item) => {
@@ -216,8 +218,9 @@ const PersonalDetailPage = ({ type }: PersonalDetailPageProp) => {
       });
       setUuid(latestUuid);
     }
-  }, [type, ListData]);
+  }, [type, listData]);
 
+  // type이 "detail"일경우 parameter의 uuid를 선택합니다.
   useEffect(() => {
     if (!params) {
       return;
@@ -229,31 +232,45 @@ const PersonalDetailPage = ({ type }: PersonalDetailPageProp) => {
 
   return (
     <Layout type="personalDetail">
-      <Link
-        to={"https://www.wadiz.kr/web/maker/detail/1748046"}
-        className="block h-14 bg-gray-100 bg-cover"
-        style={{ backgroundImage: `url(${adImage})` }}
-      ></Link>
-      <DateSlider type={type} />
-      {/* 영상 및 이미지 섹션*/}
-      <DetailSection type="media" />
-      {/* 피드백 섹션 */}
-      <DetailSection type="feedback" />
-      {/* 센터 추천 링크 섹션 */}
-      <DetailSection type="recommend" />
-      <div className="h-3 mt-7 bg-gray-100"></div>
-      {/* 통증 섹션 */}
-      <DetailSection type="pain" />
-      {/* 컨디션 섹션 */}
-      <DetailSection type="condition" />
-      <div className="h-3 mt-7 bg-gray-100"></div>
-      {/* 후기 섹션 */}
-      <CommentSection reportId={personalReport.uuid} />
-      <div className="h-3 mt-7 bg-gray-100"></div>
-      {/* 공유 섹션 */}
-      <ShareSection name={personalReport.member.name} />
-      {/* 컴퍼니 섹션 */}
-      <CompanySection />
+      {!detailData && listData && listData.datas.length === 0 ? (
+        // listData에 데이터가 존재하지 않을시 표시합니다
+        <div className="h-96 flex justify-center items-center">
+          <span className="text-sm text-gray-500">
+            퍼스널레포트가 존재하지 않습니다.
+          </span>
+        </div>
+      ) : !detailData ? (
+        // detailData가 아직 받아오지 않을시 표시합니다.
+        <LoadingPage />
+      ) : (
+        <>
+          <Link
+            to={"https://www.wadiz.kr/web/maker/detail/1748046"}
+            className="block h-14 bg-gray-100 bg-cover"
+            style={{ backgroundImage: `url(${adImage})` }}
+          ></Link>
+          <DateSlider type={type} />
+          {/* 영상 및 이미지 섹션*/}
+          <DetailSection type="media" />
+          {/* 피드백 섹션 */}
+          <DetailSection type="feedback" />
+          {/* 센터 추천 링크 섹션 */}
+          <DetailSection type="recommend" />
+          <div className="h-3 mt-7 bg-gray-100"></div>
+          {/* 통증 섹션 */}
+          <DetailSection type="pain" />
+          {/* 컨디션 섹션 */}
+          <DetailSection type="condition" />
+          <div className="h-3 mt-7 bg-gray-100"></div>
+          {/* 후기 섹션 */}
+          <CommentSection reportId={personalReport.uuid} />
+          <div className="h-3 mt-7 bg-gray-100"></div>
+          {/* 공유 섹션 */}
+          <ShareSection name={personalReport.member.name} />
+          {/* 컴퍼니 섹션 */}
+          <CompanySection />
+        </>
+      )}
     </Layout>
   );
 };

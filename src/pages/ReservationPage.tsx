@@ -7,6 +7,7 @@ import { useUserReservationData } from "../libs/useUserReservationData";
 import Layout from "../components/Layout";
 import useLessonReservationList from "../api/reservation/useLessonReservationList";
 import useReservedLessonList from "../api/reservation/useReservedLessonList";
+import LoadingPage from "./LoadingPage";
 
 const exLessonData = {
   schedules: [
@@ -159,36 +160,39 @@ const AllLecturesTab = () => {
           </button>
         </div>
       </div>
-
       <div>
-        {exLessonData.schedules.map((lessonData) => {
-          const startAt = new Date(lessonData.reservationStartAt);
-          const endAt = new Date(lessonData.reservationEndAt);
-          if (startAt <= data && data <= endAt) {
-            if (
-              !showReservable ||
-              (lessonData.currentMember < lessonData.maxGroupMember &&
-                !userReservationData.lessonSchedulesID.includes(
-                  lessonData.lessonSchduleID
-                ))
-            ) {
-              return (
-                <ReservationListBox
-                  key={lessonData.lessonSchduleID}
-                  lessonStartAt={lessonData.lessonStartAt}
-                  lessonEndAt={lessonData.lessonEndAt}
-                  lessonTitle={lessonData.lessonTitle}
-                  tutorName={lessonData.tutorName}
-                  currentMember={lessonData.currentMember}
-                  maxGroupMember={lessonData.maxGroupMember}
-                  lessonSchduleID={lessonData.lessonSchduleID}
-                  userLessonSchedules={userReservationData.lessonSchedulesID}
-                />
-              );
+        {!userReservationData ? (
+          <LoadingPage />
+        ) : (
+          exLessonData.schedules.map((lessonData) => {
+            const startAt = new Date(lessonData.reservationStartAt);
+            const endAt = new Date(lessonData.reservationEndAt);
+            if (startAt <= data && data <= endAt) {
+              if (
+                !showReservable ||
+                (lessonData.currentMember < lessonData.maxGroupMember &&
+                  !userReservationData.lessonSchedulesID.includes(
+                    lessonData.lessonSchduleID
+                  ))
+              ) {
+                return (
+                  <ReservationListBox
+                    key={lessonData.lessonSchduleID}
+                    lessonStartAt={lessonData.lessonStartAt}
+                    lessonEndAt={lessonData.lessonEndAt}
+                    lessonTitle={lessonData.lessonTitle}
+                    tutorName={lessonData.tutorName}
+                    currentMember={lessonData.currentMember}
+                    maxGroupMember={lessonData.maxGroupMember}
+                    lessonSchduleID={lessonData.lessonSchduleID}
+                    userLessonSchedules={userReservationData.lessonSchedulesID}
+                  />
+                );
+              }
             }
-          }
-          return null;
-        })}
+            return null;
+          })
+        )}
       </div>
     </>
   );
@@ -201,26 +205,32 @@ const ReservedLecturesTab = () => {
         <ReservationDateButton />
       </div>
       <div>
-        {exLessonData.schedules.map((data) => {
-          if (
-            userReservationData.lessonSchedulesID.includes(data.lessonSchduleID)
-          ) {
-            return (
-              <ReservationListBox
-                key={data.lessonSchduleID}
-                lessonStartAt={data.lessonStartAt}
-                lessonEndAt={data.lessonEndAt}
-                lessonTitle={data.lessonTitle}
-                tutorName={data.tutorName}
-                currentMember={data.currentMember}
-                maxGroupMember={data.maxGroupMember}
-                lessonSchduleID={data.lessonSchduleID}
-                userLessonSchedules={userReservationData.lessonSchedulesID}
-              />
-            );
-          }
-          return null;
-        })}
+        {!userReservationData ? (
+          <LoadingPage />
+        ) : (
+          exLessonData.schedules.map((data) => {
+            if (
+              userReservationData.lessonSchedulesID.includes(
+                data.lessonSchduleID
+              )
+            ) {
+              return (
+                <ReservationListBox
+                  key={data.lessonSchduleID}
+                  lessonStartAt={data.lessonStartAt}
+                  lessonEndAt={data.lessonEndAt}
+                  lessonTitle={data.lessonTitle}
+                  tutorName={data.tutorName}
+                  currentMember={data.currentMember}
+                  maxGroupMember={data.maxGroupMember}
+                  lessonSchduleID={data.lessonSchduleID}
+                  userLessonSchedules={userReservationData.lessonSchedulesID}
+                />
+              );
+            }
+            return null;
+          })
+        )}
       </div>
     </>
   );
