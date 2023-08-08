@@ -132,28 +132,22 @@ const MediaViewer = ({
           />
         </svg>
         {mediaItems[currentIndex].type === "IMAGE" && (
-          <>
-            <img
-              src={mediaItems[currentIndex].thumbnailUrl}
-              alt="Thumbnail"
-              style={{
-                width: "auto",
-                height: "auto",
-                maxWidth: "100%",
-                maxHeight: "100%",
-                objectFit: "cover",
-              }}
-            />
-            <span className="text-white">{currentIndex}</span>
-          </>
+          <img
+            src={mediaItems[currentIndex].thumbnailUrl}
+            alt="Thumbnail"
+            style={{
+              width: "auto",
+              height: "auto",
+              maxWidth: "100%",
+              maxHeight: "100%",
+              objectFit: "cover",
+            }}
+          />
         )}
         {mediaItems[currentIndex].type === "VIDEO" && (
-          <>
-            <video controls>
-              <source src={mediaItems[currentIndex].url} />
-            </video>
-            <span className="text-white">{currentIndex}</span>
-          </>
+          <video controls>
+            <source src={mediaItems[currentIndex].url} />
+          </video>
         )}
       </div>
     </Modal>
