@@ -168,19 +168,10 @@ const personalReport = {
     ],
   },
 };
-
 const MediaSection = () => {
   return (
     <ul className="flex space-x-2 overflow-scroll">
-      {personalReport.media.items.map((item) => (
-        <MediaListBox
-          key={item.uuid}
-          type={item.type}
-          uuid={item.uuid}
-          url={item.url}
-          thumbnailUrl={item.thumbnailUrl}
-        />
-      ))}
+      <MediaListBox mediaItems={personalReport.media.items} />
     </ul>
   );
 };
