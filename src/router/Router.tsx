@@ -8,11 +8,13 @@ import VideoPage from "../pages/VideoPage";
 import MyPage from "../pages/MyPage";
 import MemberInfoUpdatePage from "../pages/MemberInfoUpdatePage";
 import PrivateRoutes from "../components/PrivateRoutes";
+import ScrollToTop from "../components/ScrollToTop";
 
 const AppRouter = () => {
   return (
     <>
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route element={<PrivateRoutes />}>
             <Route
