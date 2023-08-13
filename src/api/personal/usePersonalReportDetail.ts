@@ -1,5 +1,4 @@
 import useSWR from "swr";
-import useTokenCheck from "../../libs/useTokenCheck";
 
 interface UseDetailProp {
   uuid: string;
@@ -69,18 +68,9 @@ interface UseDetailProp {
 }
 
 const usePersonalReportDetail = (uuid: string | undefined) => {
-  // 만료된 토큰인지 확인합니다.
-  const { accessToken, isCheckLoading } = useTokenCheck();
-
   const { data, error, isLoading } = useSWR<UseDetailProp>(
-    !isCheckLoading &&
-      accessToken &&
-      uuid && {
-        url: `http://223.130.161.221/mapi/v1/personal-reports/${uuid}`,
-        auth: `Bearer ${accessToken.token}`,
-      }
+    uuid && `http://223.130.161.221/mapi/v1/personal-reports/${uuid}`
   );
-
   return { data, error, isLoading };
 };
 
