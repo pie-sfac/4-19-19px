@@ -1,5 +1,4 @@
 import useSWR from "swr";
-import useTokenCheck from "../../libs/useTokenCheck";
 
 const exLessonReservedListData = {
   reservations: [
@@ -61,14 +60,8 @@ interface ReservedLesson {
 }
 
 const useReservedLessonList = () => {
-  const { accessToken, isCheckLoading } = useTokenCheck();
-
   const { data, error, isLoading, mutate } = useSWR<ReservedLesson>(
-    !isCheckLoading &&
-      accessToken && {
-        url: "http://223.130.161.221/mapi/v1/lesson-reservations",
-        auth: `Bearer ${accessToken.token}`,
-      }
+    "http://223.130.161.221/mapi/v1/lesson-reservations"
   );
   const handleMutate = (value: number) => {
     const index = reservedLessonIds.indexOf(value);
