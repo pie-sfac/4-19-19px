@@ -126,8 +126,13 @@ password: test19!!
 - 로그아웃 버튼을 통해 Token을 삭제하고 로그인 페이지로 이동할 수 있습니다.
 
 ## 구현 화면
-![login](https://user-images.githubusercontent.com/45960361/262870418-84ac3634-5a76-4566-8dcb-f5f3b584f1d7.gif)
-![detail](https://user-images.githubusercontent.com/45960361/262870741-5489e057-25c0-4123-889b-c0daa05d82d4.gif)
-![list](https://user-images.githubusercontent.com/45960361/262870961-de630861-27a9-4628-9dc5-1ae38618fa12.gif)
-![reservation](https://user-images.githubusercontent.com/45960361/262871109-970dd9f7-d6c7-47db-8ec9-ad9beec4f1ef.gif)
-![alarm](https://user-images.githubusercontent.com/45960361/262871165-7eea707d-d51a-437a-b0cb-9f5a352235c4.gif)
+### Login Page
+![login](https://user-images.githubusercontent.com/45960361/262874437-f798d007-a2aa-47b2-ab6f-201e9d4f8684.gif)
+### Detail Page
+![detail](https://user-images.githubusercontent.com/45960361/262874704-d6125fea-3640-4ec2-9efa-f23a5fde82fe.gif)
+### List Page
+![list](https://user-images.githubusercontent.com/45960361/262874800-df0ca683-dee6-4a71-8769-6a7c3350db3f.gif)
+### Reservation Page
+![reservation](https://user-images.githubusercontent.com/45960361/262874912-2e245b14-283c-4a18-983c-7db6fbe01266.gif)
+### Alarm & My Page
+![alarm](https://user-images.githubusercontent.com/45960361/262875038-41046318-e01b-4629-8e9f-c2df7db84b99.gif)
