@@ -28,6 +28,11 @@ const MyPage = () => {
     }
   }, [isLoggedOut]);
 
+  const handleDummyLogout = () => {
+    localStorage.removeItem("accessToken");
+    navigate("/login");
+  };
+
   return (
     <Layout type="myPage">
       <div className="px-4 py-6">
@@ -50,7 +55,7 @@ const MyPage = () => {
           </Link>
           <button
             className="bg-white border border-solid border-gray-300 rounded-md text-black font-semibold text-xs leading-5 px-4 py-2 text-center shadow-xs cursor-pointer select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-            onClick={handleLogout}
+            onClick={handleDummyLogout}
           >
             로그아웃
           </button>

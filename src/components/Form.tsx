@@ -6,6 +6,11 @@ import useLogin from "../api/auth/useLogin";
 import { isIncorrectAtom } from "../atom";
 import "../index.css";
 
+const dummyUser = {
+  username: "test19",
+  password: "test19!!",
+};
+
 const Form: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -35,7 +40,22 @@ const Form: React.FC = () => {
     event.preventDefault();
     //로그인 유무를 확인하는 api와 통신
     setIsIncorrect(false);
-    handleLogin(username, password);
+    //handleLogin(username, password);
+    handleDummyLogin(username, password);
+  };
+
+  const handleDummyLogin = (username: string, password: string) => {
+    if (username !== dummyUser.username) {
+      setIsIncorrect(true);
+    } else if (password !== dummyUser.password) {
+      setIsIncorrect(true);
+    } else {
+      localStorage.setItem(
+        "accessToken",
+        JSON.stringify({ token: "accessToken" })
+      );
+      navigate("/");
+    }
   };
 
   useEffect(() => {
@@ -86,10 +106,7 @@ const Form: React.FC = () => {
       >
         {errorMessage}
       </p>
-      <Input
-        type="submit"
-        isLoginButtonActive={isLoginButtonActive}
-      />
+      <Input type="submit" isLoginButtonActive={isLoginButtonActive} />
     </form>
   );
 };
