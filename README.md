@@ -126,3 +126,8 @@ password: test19!!
 - 로그아웃 버튼을 통해 Token을 삭제하고 로그인 페이지로 이동할 수 있습니다.
 
 ## 구현 화면
+![login](https://user-images.githubusercontent.com/45960361/262870418-84ac3634-5a76-4566-8dcb-f5f3b584f1d7.gif)
+![detail](https://user-images.githubusercontent.com/45960361/262870741-5489e057-25c0-4123-889b-c0daa05d82d4.gif)
+![list](https://user-images.githubusercontent.com/45960361/262870961-de630861-27a9-4628-9dc5-1ae38618fa12.gif)
+![reservation](https://user-images.githubusercontent.com/45960361/262871109-970dd9f7-d6c7-47db-8ec9-ad9beec4f1ef.gif)
+![alarm](https://user-images.githubusercontent.com/45960361/262871165-7eea707d-d51a-437a-b0cb-9f5a352235c4.gif)
