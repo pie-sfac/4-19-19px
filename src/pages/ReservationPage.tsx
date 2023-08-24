@@ -1,5 +1,7 @@
+import ReservationTabNav from "../components/Reservation/ReservationTabNav";
+
 const ReservationPage = () => {
-  return null;
+  return <ReservationTabNav />;
 };
 
 export default ReservationPage;

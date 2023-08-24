@@ -1,10 +1,23 @@
+import Modal from "react-modal";
 import AppRouter from "./router/Router";
+import { SWRConfig } from "swr";
+import useApi from "./libs/useApi";
+
+Modal.setAppElement("#root");
 
 function App() {
+  const { api } = useApi();
   return (
-    <div className="w-[390px] h-[844px] px-4 bg-white mx-auto mt-10">
+    <SWRConfig
+      value={{
+        fetcher: (url) =>
+          api({
+            url,
+          }).then((res) => res.data),
+      }}
+    >
       <AppRouter />
-    </div>
+    </SWRConfig>
   );
 }
 

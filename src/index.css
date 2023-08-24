@@ -2,6 +2,105 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+* {
+  font-family: "Pretendard-Regular";
+  box-sizing: border-box;
+}
+
 body {
   background-color: #111;
+
+  .react-datepicker__header {
+    background-color: #2d62ea;
+    border-bottom: none;
+    border-radius: none !important;
+    padding: 15px 0 10px 0;
+    margin-bottom: 10px;
+  }
+  .react-datepicker__triangle {
+    display: none;
+  }
+
+  .react-datepicker__day-name {
+    color: white;
+  }
+
+  .react-datepicker__day--selected {
+    background-color: #2d62ea;
+    color: white !important;
+    border-radius: 50%;
+  }
+
+  .react-datepicker__day:nth-child(1) {
+    color: #e75f5f;
+  }
+  .react-datepicker__day:nth-child(7) {
+    color: #6e94e6;
+  }
+
+  .react-datepicker__day-name:nth-child(1) {
+    color: #e75f5f;
+  }
+  .react-datepicker__day-name:nth-child(7) {
+    color: #a5bbec;
+  }
+
+  .react-datepicker__day--selected:hover {
+    background-color: #2d62ea;
+    color: white;
+    border-radius: 20%;
+  }
+  .react-datepicker__day--outside-month {
+    color: rgb(194, 194, 194) !important;
+  }
+}
+
+.transition-opacity {
+  transition-property: opacity;
+}
+
+.bg-opacity-80 {
+  transition: opacity 0.5s ease-in-out;
+}
+
+.ReactModal__Overlay {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+}
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-2px);
+  }
+  50% {
+    transform: translateX(2px);
+  }
+  75% {
+    transform: translateX(-2px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-shake {
+  animation: shake 0.3s linear;
 }
